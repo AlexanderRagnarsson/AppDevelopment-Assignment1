@@ -10,7 +10,7 @@ function BoardList({ boards, lists, tasks }) {
         data={boards}
         renderItem={({ item }) => (
           <Text>
-            {item.id + ' ' + item.name}
+            {`${item.id} ${item.name}`}
           </Text>
           // TODO: render Board here
           // <Board {...item} />

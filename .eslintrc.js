@@ -24,5 +24,7 @@ module.exports = {
         namedComponents: 'function-declaration',
       },
     ],
+    'react/jsx-filename-extension': [1, {'extenstion': ['.js', '.jsx'] } ],
+    'linebreak-style': ['error', 'windows'],
   },
 };

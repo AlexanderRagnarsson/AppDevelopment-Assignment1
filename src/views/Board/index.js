@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View } from 'react-native';
+import { View, Text } from 'react-native';
+import TheBoard from '../../components/Board';
 
 function Board({
   id, name, description = '', thumbnailPhoto, lists, tasks, navigate,
@@ -8,6 +9,12 @@ function Board({
   return (
     <View>
       <Text>{`${id} ${name} ${description}  ${thumbnailPhoto} ${lists} ${tasks} ${navigate}`}</Text>
+      <Text>NONONO</Text>
+      <Text>{`${lists} ${tasks} ${navigate}`}</Text>
+      <TheBoard
+        {...{ lists, navigate }}
+        // {...{ ...data, navigate }}
+      />
     </View>
   );
 }

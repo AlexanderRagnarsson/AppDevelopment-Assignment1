@@ -4,7 +4,7 @@ import {
   View, FlatList, Text, Image,
 } from 'react-native';
 
-function Board({
+function BoardPreview({
   id, name, description = '', thumbnailPhoto, lists, tasks,
 }) {
   const boardlists = lists.filter((item) => item.boardId === id);
@@ -33,7 +33,7 @@ function Board({
   );
 }
 
-Board.propTypes = {
+BoardPreview.propTypes = {
   id: PropTypes.number.isRequired,
   description: PropTypes.string,
   name: PropTypes.string.isRequired,
@@ -42,8 +42,8 @@ Board.propTypes = {
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-Board.defaultProps = {
+BoardPreview.defaultProps = {
   description: '',
 };
 
-export default Board;
+export default BoardPreview;

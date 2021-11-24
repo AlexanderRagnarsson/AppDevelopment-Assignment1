@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
-import Board from '../Board';
+import BoardPreview from '../BoardPreview';
+import styles from './styles';
 
 function BoardList({ boards, lists, tasks }) {
   return (
-    <View>
+    <View styles={styles.listContainer}>
       <FlatList
         numColumns={1}
         data={boards}
         renderItem={({ item }) => (
-          <Board {...{ ...item, lists, tasks }} />
+          <BoardPreview {...{ ...item, lists, tasks }} />
         )}
         keyExtractor={(board) => board.id}
       />

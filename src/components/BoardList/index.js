@@ -4,7 +4,6 @@ import { View, FlatList } from 'react-native';
 import BoardPreview from '../BoardPreview';
 
 function BoardList({ boards, lists, tasks, navigate }) {
-  console.log('HI?');
   return (
     <View>
       <FlatList
@@ -20,7 +19,7 @@ function BoardList({ boards, lists, tasks, navigate }) {
 }
 
 BoardList.propTypes = {
-  navigate: PropTypes.arrayOf(PropTypes.function).isRequired,
+  navigate: PropTypes.func.isRequired,
   boards: PropTypes.arrayOf(PropTypes.object).isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,

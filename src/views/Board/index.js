@@ -1,18 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, Text } from 'react-native';
+import { View, Text, Animated } from 'react-native';
 import TheBoard from '../../components/Board';
+import styles from './styles';
 
-function Board({
-  id, name, description = '', thumbnailPhoto, lists, tasks, navigate,
-}) {
+function Board({ route }) {
+  const { id } = route.params;
+  const { name } = route.params;
+  const { description } = route.params;
+  const { thumbnailPhoto } = route.params;
+  const { lists } = route.params;
+  const { tasks } = route.params;
+
   return (
     <View>
-      <Text>{`${id} ${name} ${description}  ${thumbnailPhoto} ${lists} ${tasks} ${navigate}`}</Text>
+      <Text>{`${id} ${name} ${description} ${lists} ${tasks}`}</Text>
+      <Animated.Image
+        style={styles.Image}
+        source={{ uri: thumbnailPhoto }}
+      />
       <Text>NONONO</Text>
-      <Text>{`${lists} ${tasks} ${navigate}`}</Text>
       <TheBoard
-        {...{ lists, navigate }}
+        {...{ id, name, description, thumbnailPhoto, lists, tasks }}
         // {...{ ...data, navigate }}
       />
     </View>
@@ -26,7 +35,6 @@ Board.propTypes = {
   thumbnailPhoto: PropTypes.string.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  navigate: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 Board.defaultProps = {

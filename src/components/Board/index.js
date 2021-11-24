@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { Text, View } from 'react-native';
 
 function Board({
-  id, name, description = '', thumbnailPhoto, lists, tasks, navigate,
+  id, name, description = '', thumbnailPhoto, lists, tasks,
 }) {
   return (
     <View>
-      <Text>{`${id} ${name} ${description}  ${thumbnailPhoto} ${lists} ${tasks} ${navigate}`}</Text>
+      <Text>{`FFS: ${id} ${name} ${description}  ${thumbnailPhoto} THE LIST NAME: ${lists[0].name} `}</Text>
     </View>
   );
 }
@@ -19,7 +19,7 @@ Board.propTypes = {
   thumbnailPhoto: PropTypes.string.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  navigate: PropTypes.arrayOf(PropTypes.object).isRequired,
+  navigate: PropTypes.number.isRequired,
 };
 
 Board.defaultProps = {

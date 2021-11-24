@@ -16,7 +16,7 @@ function BoardList({ navigation: { navigate } }) {
 }
 
 BoardList.propTypes = {
-  navigation: PropTypes.arrayOf(PropTypes.object).isRequired,
+  navigation: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
 export default BoardList;

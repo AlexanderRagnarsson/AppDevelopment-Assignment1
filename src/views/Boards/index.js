@@ -1,16 +1,13 @@
 import React from 'react';
-import { View, Text, TouchableHighlight, Image } from 'react-native';
-import logo from '../../resources/RU.jpg';
-import styles from './styles';
+import { View, Text } from 'react-native';
+// import { headings } from '../../styles';
+import BoardList from '../../components/BoardList';
+import data from '../../resources/data.json'
 
-const Boards = () => (
-    <View style={styles.container}>
-      <Image style={styles.logo} source={logo} />
-      <Text style={styles.paragraph}>Ogeðslega gaman haahahhahahha xd</Text>
-      <TouchableHighlight style={styles.button}>
-        <Text style={styles.buttonText}>Boards</Text>
-      </TouchableHighlight>
-    </View>
-);
+const Boards = () => {
+    return (
+        <BoardList data={data.boards} />
+    )
+};
 
 export default Boards;

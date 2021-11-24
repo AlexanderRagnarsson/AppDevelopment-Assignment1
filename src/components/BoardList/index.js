@@ -1,8 +1,9 @@
 import React from "react";
 import { View, FlatList, Text } from "react-native";
 import styles from './styles';
+import ImageThumbnail from '../ImageThumbnail';
 
-const Board = ({ data }) => (
+const BoardList = ({ data }) => (
     <View style={styles.listContainer}>
         <FlatList
             numColumns={1}
@@ -16,4 +17,4 @@ const Board = ({ data }) => (
     </View>
 );
 
-export default Board;
+export default BoardList;

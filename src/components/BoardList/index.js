@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { View, FlatList, Text } from 'react-native';
+import { View, FlatList } from 'react-native';
+import Board from '../Board';
 
 function BoardList({ boards, lists, tasks }) {
   return (
@@ -9,11 +10,7 @@ function BoardList({ boards, lists, tasks }) {
         numColumns={1}
         data={boards}
         renderItem={({ item }) => (
-          <Text>
-            {`${item.id} ${item.name}`}
-          </Text>
-          // TODO: render Board here
-          // <Board {...item} />
+          <Board {...{ ...item, lists, tasks }} />
         )}
         keyExtractor={(board) => board.id}
       />

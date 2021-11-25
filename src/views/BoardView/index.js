@@ -11,7 +11,7 @@ function Board({ route }) {
 
   return (
     <View>
-      <Text>{`${id} ${name} ${description} ${lists} ${tasks}`}</Text>
+      <Text>{`${id} ${name} ${description}`}</Text>
       <Animated.Image
         style={styles.Image}
         source={{ uri: thumbnailPhoto }}
@@ -21,14 +21,14 @@ function Board({ route }) {
         {...{
           id, name, description, thumbnailPhoto, lists, tasks,
         }}
-        // {...{ ...data, navigate }}
+      // {...{ ...data, navigate }}
       />
     </View>
   );
 }
 
 Board.propTypes = {
-  route: PropTypes.objectOf(PropTypes.object).isRequired,
+  route: PropTypes.object.isRequired,
 };
 
 export default Board;

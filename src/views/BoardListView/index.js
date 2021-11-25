@@ -40,7 +40,7 @@ function Boards({ navigation: { navigate } }) {
 }
 
 Boards.propTypes = {
-  navigation: PropTypes.objectOf(PropTypes.object).isRequired,
+  navigation: PropTypes.object.isRequired,
 };
 
 export default Boards;

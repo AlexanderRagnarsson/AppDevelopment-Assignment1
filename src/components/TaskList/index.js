@@ -20,10 +20,7 @@ function TaskList({
     const nextId = data.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
     const taskListId = id;
     data.push({ id: nextId, ...task, listId: taskListId });
-    setData({
-      ...data,
-      tasks,
-    });
+    setData(data);
   };
 
 

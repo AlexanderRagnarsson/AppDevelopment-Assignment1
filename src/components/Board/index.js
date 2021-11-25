@@ -1,12 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableHighlight, Animated } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 function Board({
   id, name, description = '', thumbnailPhoto, lists, tasks,
 }) {
   return (
     <View>
+      <TouchableHighlight
+        onPress={() => navigate('Board', { ...{id, name, description, thumbnailPhoto, lists: boardlists, tasks: taskslists, navigate} })}>
+          <AntDesign name="delete" size={50} color="black" />
+      </TouchableHighlight>
       <Text>{`FFS: ${id} ${name} ${description}  ${thumbnailPhoto} THE LIST NAME: ${lists[0].name} `}</Text>
     </View>
   );
@@ -19,7 +24,6 @@ Board.propTypes = {
   thumbnailPhoto: PropTypes.string.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  navigate: PropTypes.number.isRequired,
 };
 
 Board.defaultProps = {

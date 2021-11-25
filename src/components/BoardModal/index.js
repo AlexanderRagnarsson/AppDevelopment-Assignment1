@@ -68,7 +68,11 @@ function BoardModal({
       </TouchableOpacity>
       <Button
         title="Submit"
-        onPress={() => { submit(inputs); closeModal(); clearInputs(); }}
+        onPress={() => {
+          submit(inputs);
+          closeModal();
+          clearInputs();
+        }}
       />
     </Modal>
   );

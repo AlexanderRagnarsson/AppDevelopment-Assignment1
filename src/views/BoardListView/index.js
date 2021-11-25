@@ -27,15 +27,23 @@ function Boards({ navigation: { navigate } }) {
     return photo;
   };
 
-  const submitFunc = (board) => {
+  const submitFunc = async ({ name, description, thumbnailPhoto }) => {
     const { boards } = data;
     const nextId = boards.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
 
-    boards.push({ id: nextId, ...board });
-    setData({
-      ...data,
-      boards,
-    });
+    await thumbnailPhoto.then(
+      (value) => {
+        const board = {
+          nextId, name, description, thumbnailPhoto: value,
+        };
+
+        boards.push({ id: nextId, ...board });
+        setData({
+          ...data,
+          boards,
+        });
+      },
+    );
   };
 
   return (
@@ -60,7 +68,7 @@ function Boards({ navigation: { navigate } }) {
 }
 
 Boards.propTypes = {
-  navigation: PropTypes.object.isRequired,
+  navigation: PropTypes.objectOf(PropTypes.func).isRequired,
 };
 
 export default Boards;

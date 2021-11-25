@@ -27,5 +27,6 @@ export const addImage = async (imageLocation) => {
     name: filename,
     type: 'image',
     file: await loadImage(filename),
+    filename: `${imageDirectory}/${filename}`,
   };
 };

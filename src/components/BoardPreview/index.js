@@ -11,6 +11,7 @@ function BoardPreview({
   const boardlists = lists.filter((item) => item.boardId === id);
   // const taskslists = tasks.filter((item) => item.listId in boardlists);
   // console.log(boardlists);
+  // console.log(thumbnailPhoto);
   return (
     <View>
       <Text>{`${id} ${name} ${description} `}</Text>

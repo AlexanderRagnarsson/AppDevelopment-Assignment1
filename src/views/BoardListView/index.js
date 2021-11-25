@@ -10,7 +10,9 @@ import * as fileService from '../../services/fileService';
 
 function Boards({ navigation: { navigate } }) {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
-  const [data, setData] = useState(fileData);
+  const [boards, setBoards] = useState(fileData.boards);
+  const [lists, setLists] = useState(fileData.lists);
+  const [tasks, setTasks] = useState(fileData.tasks);
 
   const addImage = async (photo) => {
     const newImage = await fileService.addImage(photo);
@@ -28,22 +30,29 @@ function Boards({ navigation: { navigate } }) {
   };
 
   const submitFunc = async ({ name, description, thumbnailPhoto }) => {
-    const { boards } = data;
     const nextId = boards.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
 
     await thumbnailPhoto.then(
       (value) => {
         const board = {
-          nextId, name, description, thumbnailPhoto: value,
+          id: nextId, name, description, thumbnailPhoto: value,
         };
 
-        boards.push({ id: nextId, ...board });
-        setData({
-          ...data,
-          boards,
-        });
+        setBoards([...boards, board]);
       },
     );
+  };
+
+  // navigate('Board', {
+  //   ...{
+  //     id, name, description, thumbnailPhoto,
+  //   },
+
+  // Navigate to the screen with the params and tasks, lists, setTasks, setLists
+  const navigateToBoardView = (screen, params) => {
+    navigate(screen, {
+      ...params, boards, tasks, lists, setBoards, setTasks, setLists,
+    });
   };
 
   return (
@@ -54,7 +63,9 @@ function Boards({ navigation: { navigate } }) {
       />
       <Text>BOARDS:</Text>
       <BoardList
-        {...{ ...data, navigate }}
+        {...{
+          boards, setBoards, navigate: navigateToBoardView,
+        }}
       />
       <BoardModal
         isOpen={isBoardModalOpen}

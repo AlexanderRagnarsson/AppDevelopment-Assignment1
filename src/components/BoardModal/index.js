@@ -10,6 +10,8 @@ import styles from './styles';
 function BoardModal({
   isOpen,
   closeModal,
+  takePhoto,
+  selectFromCameraRoll,
   submit,
 }) {
   const [inputs, setInputs] = useState({
@@ -28,14 +30,6 @@ function BoardModal({
   const clearInputs = () => {
     inputs.name = '';
     inputs.description = '';
-  };
-
-  const takePhoto = () => {
-
-  };
-
-  const selectFromCameraRoll = () => {
-
   };
 
   return (
@@ -63,7 +57,6 @@ function BoardModal({
           {'Take photo with camera '}
           <Entypo styles={styles.icon} name="camera" />
         </Text>
-
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => selectFromCameraRoll()}
@@ -88,10 +81,10 @@ BoardModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   // Function to submit the new Board
   submit: PropTypes.func.isRequired,
-  // // Function to take a photo
-  // takePhoto: PropTypes.func.isRequired,
-  // // Function to select photo from camera roll
-  // selectFromCameraRoll: PropTypes.func.isRequired,
+  // Function to take a photo
+  takePhoto: PropTypes.func.isRequired,
+  // Function to select photo from camera roll
+  selectFromCameraRoll: PropTypes.func.isRequired,
 };
 
 export default BoardModal;

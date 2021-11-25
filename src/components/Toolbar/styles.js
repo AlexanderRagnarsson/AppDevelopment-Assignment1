@@ -1,21 +1,24 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    toolbar: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: 100,
-        backgroundColor: 'blue'
-    },
-    toolbarAction: {
-        flex: 1,
-        marginTop: 20,
-        alignItems: 'center'
-    },
-    toolbarActionText: {
-        fontWeight: 'bold',
-        color: 'white',
-        fontSize: 16
-    }
-})
+  toolbar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 80,
+    backgroundColor: '#fff',
+  },
+  toolbarAction: {
+    flex: 1,
+    backgroundColor: '#321',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+  },
+  toolbarActionText: {
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  icon: {
+    fontSize: 200,
+  },
+});

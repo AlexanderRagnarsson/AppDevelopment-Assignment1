@@ -1,7 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  listContainer: {
+  icon: {
+    fontSize: 60,
+    marginTop: 20,
+    marginBottom: 20,
+  },
+  textInput: {
     flex: 1,
   },
 });

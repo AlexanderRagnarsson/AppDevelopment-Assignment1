@@ -1,20 +1,34 @@
-import React from "react";
-import { View, FlatList, Text } from "react-native";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { View, FlatList } from 'react-native';
+import BoardPreview from '../BoardPreview';
 import styles from './styles';
-import ImageThumbnail from '../ImageThumbnail';
 
-const BoardList = ({ data }) => (
-    <View style={styles.listContainer}>
-        <FlatList
-            numColumns={1}
-            data={data}
-            renderItem={({ item }) => (
-                <Text>
-                    {`${item.id} ${item.name}`}
-                </Text>
-            )}
-            keyExtractor={data => data.id} />
+function BoardList({
+  boards, lists, tasks, navigate,
+}) {
+  return (
+    <View styles={styles.listContainer}>
+      <FlatList
+        numColumns={1}
+        data={boards}
+        renderItem={({ item }) => (
+          <BoardPreview {...{
+            ...item, lists, tasks, navigate,
+          }}
+          />
+        )}
+        keyExtractor={(board) => board.id}
+      />
     </View>
-);
+  );
+}
+
+BoardList.propTypes = {
+  navigate: PropTypes.func.isRequired,
+  boards: PropTypes.arrayOf(PropTypes.object).isRequired,
+  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default BoardList;

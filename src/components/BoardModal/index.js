@@ -51,7 +51,7 @@ function BoardModal({
         onChangeText={(text) => inputHandler('description', text)}
       />
       <TouchableOpacity
-        onPress={() => takePhoto()}
+        onPress={() => inputHandler('thumbnailPhoto', takePhoto())}
       >
         <Text>
           {'Take photo with camera '}

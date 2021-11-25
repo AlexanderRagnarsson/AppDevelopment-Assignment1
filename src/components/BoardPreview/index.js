@@ -1,34 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, FlatList, Text, Image,
+  View, Text, Animated, TouchableHighlight,
 } from 'react-native';
+import styles from './styles';
 
 function BoardPreview({
-  id, name, description = '', thumbnailPhoto, lists, tasks,
+  id, name, description = '', thumbnailPhoto, lists, tasks, navigate,
 }) {
   const boardlists = lists.filter((item) => item.boardId === id);
+  // const taskslists = tasks.filter((item) => item.listId in boardlists);
+  // console.log(boardlists);
   return (
     <View>
-      <Text>{`${id} ${name} ${description}`}</Text>
-      <Image
-        source={{ uri: thumbnailPhoto }}
-      />
-      <FlatList
-        numColumns={3}
-        data={boardlists}
-        renderItem={({ item }) => (
-          <Text style={
-            { color: item.color }
-            }
-          >
-            {`${item.id} ${item.name}`}
-          </Text>
-          // TODO: render Board here
-          // <Board {...item} />
-        )}
-        keyExtractor={(board) => board.id}
-      />
+      <Text>{`${id} ${name} ${description} `}</Text>
+      <TouchableHighlight
+        onPress={() => navigate('Board', {
+          ...{
+            id, name, description, thumbnailPhoto, lists: boardlists, tasks,
+          },
+        })}
+      >
+        <Animated.Image
+          style={styles.Image}
+          source={{ uri: thumbnailPhoto }}
+        />
+      </TouchableHighlight>
     </View>
   );
 }
@@ -40,6 +37,7 @@ BoardPreview.propTypes = {
   thumbnailPhoto: PropTypes.string.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  navigate: PropTypes.func.isRequired,
 };
 
 BoardPreview.defaultProps = {

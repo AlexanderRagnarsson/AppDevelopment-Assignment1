@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import BoardList from '../../components/BoardList';
 import fileData from '../../resources/data.json';
@@ -7,20 +8,20 @@ import Toolbar from '../../components/Toolbar';
 import * as imageService from '../../services/imageService';
 import * as fileService from '../../services/fileService';
 
-function Boards() {
+function Boards({ navigation: { navigate } }) {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const [data, setData] = useState(fileData);
 
   const addImage = async (photo) => {
     const newImage = await fileService.addImage(photo);
-    return newImage;
+    return newImage.filename;
   };
 
   const takePhoto = async () => {
-    const photo = await imageService.takePhoto();
+    let photo = await imageService.takePhoto();
 
     if (photo.length > 0) {
-      return addImage(photo);
+      photo = await addImage(photo);
     }
 
     return photo;
@@ -45,7 +46,7 @@ function Boards() {
       />
       <Text>BOARDS:</Text>
       <BoardList
-        {...data}
+        {...{ ...data, navigate }}
       />
       <BoardModal
         isOpen={isBoardModalOpen}
@@ -57,5 +58,9 @@ function Boards() {
     </View>
   );
 }
+
+Boards.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 
 export default Boards;

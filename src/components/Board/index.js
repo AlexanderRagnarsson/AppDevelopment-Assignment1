@@ -5,9 +5,10 @@ import { FlatList, Text, View, TouchableHighlight } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 function Board({
-  id, name, description = '', thumbnailPhoto, lists, tasks,
+  id, name, description = '', thumbnailPhoto, data, tasks,
 }) {
   // console.log(...tasks)
+  const boardlists = data.filter((item) => item.boardId === id);
   return (
     <View>
       <TouchableHighlight>
@@ -15,7 +16,7 @@ function Board({
       </TouchableHighlight>
       <FlatList
         numColumns={1}
-        data={lists}
+        data={boardlists}
         renderItem={({ item }) => (
           <TaskList {...{ ...item, tasks }} />
         )}
@@ -25,7 +26,6 @@ function Board({
   );
 }
 
-/*<Text>{`FFS: ${id} ${name} ${description}  ${thumbnailPhoto} THE LIST NAME: ${lists[0].name} `}</Text>*/
 Board.propTypes = {
   id: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,

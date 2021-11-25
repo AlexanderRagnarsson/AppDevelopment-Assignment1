@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, Animated } from 'react-native';
+import {
+  View, Text, Animated,
+} from 'react-native';
 import TheBoard from '../../components/Board';
 import styles from './styles';
-import BoardModal from '../../components/BoardModal';
+import BoardModal from '../../components/ListModal';
 import Toolbar from '../../components/Toolbar';
 
 function Board({ route }) {
@@ -13,8 +15,6 @@ function Board({ route }) {
 
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const [data, setData] = useState(lists);
-
-  console.log(data);
 
   const submitFunc = (list) => {
     const nextId = data.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
@@ -29,7 +29,9 @@ function Board({ route }) {
         onAdd={() => setIsBoardModalOpen(true)}
         addString="Add List"
       />
-      <Text>{`${id} ${name} ${description}`}</Text>
+      <Text>
+        {`${id} ${name} ${description}, To delete board: `}
+      </Text>
       <Animated.Image
         style={styles.Image}
         source={{ uri: thumbnailPhoto }}
@@ -50,7 +52,7 @@ function Board({ route }) {
 }
 
 Board.propTypes = {
-  route: PropTypes.object.isRequired,
+  route: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Board;

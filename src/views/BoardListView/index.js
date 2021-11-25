@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import BoardList from '../../components/BoardList';
 import fileData from '../../resources/data.json';
-import BoardModal from '../../components/BoardListModal';
+import BoardModal from '../../components/BoardModal';
 import Toolbar from '../../components/Toolbar';
 import * as imageService from '../../services/imageService';
 import * as fileService from '../../services/fileService';

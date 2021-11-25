@@ -1,26 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {
+  FlatList, View,
+} from 'react-native';
 import PropTypes from 'prop-types';
-import { FlatList, Text, View, TouchableHighlight } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
 import TaskList from '../TaskList';
 
 function Board({
-  id, name, description = '', thumbnailPhoto, data, tasks, deleteBoard,
+  id, name, description = '', thumbnailPhoto, data, tasks,
 }) {
   // console.log(...tasks)
   const boardlists = data.filter((item) => item.boardId === id);
+
+  const [theLists, setTheLists] = useState(boardlists);
+
+  const deleteList = (listId) => {
+    console.log(listId);
+    console.log(theLists);
+    setTheLists(theLists.filter((item) => (item.id !== listId)));
+  };
+
   return (
     <View>
-      <TouchableHighlight
-        onPress
-      >
-        <AntDesign name="delete" size={50} color="black" />
-      </TouchableHighlight>
       <FlatList
         numColumns={1}
-        data={boardlists}
+        data={theLists}
         renderItem={({ item }) => (
-          <TaskList {...{ ...item, tasks }} />
+          <TaskList {...{ ...item, tasks, deleteList }} />
         )}
         keyExtractor={(board) => board.id}
       />
@@ -33,7 +38,7 @@ Board.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
   thumbnailPhoto: PropTypes.string.isRequired,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

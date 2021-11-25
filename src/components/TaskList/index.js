@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AntDesign } from '@expo/vector-icons';
 import PropTypes from 'prop-types';
 import {
   View, Text, FlatList, TouchableHighlight,
@@ -9,7 +10,7 @@ import Toolbar from '../Toolbar';
 import TaskModal from '../TaskModal';
 
 function TaskList({
-  id, name, color, boardId, tasks,
+  id, name, color, boardId, tasks, deleteList
 }) {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [data, setData] = useState(tasks);
@@ -25,7 +26,14 @@ function TaskList({
   const tasklist = tasks.filter((item) => item.listId === id);
   return (
     <View>
-      <Text>{`List: ${id}, Name: ${name}`}</Text>
+      <Text>
+        {`List: ${id}, Name: ${name}, To delete list: `}
+        <TouchableHighlight
+          onPress={() => deleteList(id)}
+        >
+          <AntDesign name="delete" size={20} color="black" />
+        </TouchableHighlight>
+      </Text>
       <Toolbar
         onAdd={() => setIsTaskModalOpen(true)}
         addString="Add task"
@@ -39,7 +47,15 @@ function TaskList({
         numColumns={1}
         data={tasklist}
         renderItem={({ item }) => (
-          <Task style={styles.Task} {...{ ...item }} />
+          <View>
+            <Text>
+              {`Delete task with id: ${id}  `}
+              <TouchableHighlight>
+                <AntDesign name="delete" size={20} color="black" />
+              </TouchableHighlight>
+            </Text>
+            <Task style={styles.Task} {...{ ...item }} />
+          </View>
         )}
         keyExtractor={(board) => board.id}
       />

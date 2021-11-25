@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
 import BoardList from '../../components/BoardList';
 import fileData from '../../resources/data.json';
 import BoardModal from '../../components/BoardModal';
 import Toolbar from '../../components/Toolbar';
 
-function Boards() {
+function Boards({ navigation: { navigate } }) {
   const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
   const [data, setData] = useState(fileData);
 
@@ -27,7 +28,7 @@ function Boards() {
       />
       <Text>BOARDS:</Text>
       <BoardList
-        {...data}
+        {...{ ...data, navigate }}
       />
       <BoardModal
         isOpen={isBoardModalOpen}
@@ -37,5 +38,9 @@ function Boards() {
     </View>
   );
 }
+
+Boards.propTypes = {
+  navigation: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default Boards;

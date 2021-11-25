@@ -6,7 +6,9 @@ import {
 import Task from '../Task';
 import styles from './styles';
 
-function TaskList({ id, name, color, boardId, tasks }) {
+function TaskList({
+  id, name, color, boardId, tasks,
+}) {
   const tasklist = tasks.filter((item) => item.listId === id);
   return (
     <View>

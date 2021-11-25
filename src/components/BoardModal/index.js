@@ -48,7 +48,11 @@ function BoardModal({
       />
       <Button
         title="Submit"
-        onPress={() => { submit(inputs); closeModal(); clearInputs(); }}
+        onPress={() => {
+          submit(inputs);
+          closeModal();
+          clearInputs();
+        }}
       />
     </Modal>
   );
@@ -61,10 +65,6 @@ BoardModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   // Function to submit the new Board
   submit: PropTypes.func.isRequired,
-  // // Function to take a photo
-  // takePhoto: PropTypes.func.isRequired,
-  // // Function to select photo from camera roll
-  // selectFromCameraRoll: PropTypes.func.isRequired,
 };
 
 export default BoardModal;

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TaskList from '../TaskList';
 import { FlatList, Text, View, TouchableHighlight } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import TaskList from '../TaskList';
 
 function Board({
   id, name, description = '', thumbnailPhoto, data, tasks, deleteBoard,

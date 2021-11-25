@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlatList, Text, View } from 'react-native';
 import TaskList from '../TaskList';
+import { FlatList, Text, View, TouchableHighlight } from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
 
 function Board({
   id, name, description = '', thumbnailPhoto, lists, tasks,
@@ -9,6 +10,9 @@ function Board({
   // console.log(...tasks)
   return (
     <View>
+      <TouchableHighlight>
+        <AntDesign name="delete" size={50} color="black" />
+      </TouchableHighlight>
       <FlatList
         numColumns={1}
         data={lists}
@@ -29,7 +33,6 @@ Board.propTypes = {
   thumbnailPhoto: PropTypes.string.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  navigate: PropTypes.number.isRequired,
 };
 
 Board.defaultProps = {

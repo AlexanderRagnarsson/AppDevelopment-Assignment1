@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import BoardList from '../views/BoardList';
-import Board from '../views/Board';
+import BoardList from '../views/BoardListView';
+import Board from '../views/BoardView';
 
 const Stack = createStackNavigator();
 

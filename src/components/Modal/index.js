@@ -16,8 +16,9 @@ function BoardModal({
       hasBackdrop
       onBackButtonPress={closeModal}
       onSwipeComplete={closeModal}
+      // onBackdropPress={closeModal}
       swipeDirection={['up', 'down']}
-      style={styles.body}
+      style={styles.modal}
     >
       <View style={styles.body}>
         <Text>{title}</Text>

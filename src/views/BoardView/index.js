@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { View, Text, Animated } from 'react-native';
 import TheBoard from '../../components/Board';
 import styles from './styles';
-import BoardModal from '../../components/BoardModal';
+import BoardModal from '../../components/ListModal';
 import Toolbar from '../../components/Toolbar';
 
 function Board({ route }) {

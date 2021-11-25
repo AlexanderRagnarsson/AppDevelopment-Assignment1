@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Entypo } from '@expo/vector-icons';
 import {
-  TouchableOpacity, TextInput, Button, Text,
+  TextInput, Button,
 } from 'react-native';
 import PropTypes from 'prop-types';
 import Modal from '../Modal';
@@ -14,8 +13,7 @@ function BoardModal({
 }) {
   const [inputs, setInputs] = useState({
     name: '',
-    description: '',
-    thumbnailPhoto: 'https://i.ytimg.com/vi/m_PecfbEWik/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA6fg81J4DQU-X6hIVmbneH0gTfbA',
+    color: 'blue',
   });
 
   const inputHandler = (name, value) => {
@@ -27,52 +25,27 @@ function BoardModal({
 
   const clearInputs = () => {
     inputs.name = '';
-    inputs.description = '';
-  };
-
-  const takePhoto = () => {
-
-  };
-
-  const selectFromCameraRoll = () => {
-
+    inputs.color = '';
   };
 
   return (
     <Modal
       isOpen={isOpen}
       closeModal={() => { closeModal(); clearInputs(); }}
-      title="Create a board"
+      title="Create a list"
     >
       <TextInput
         styles={styles.textInput}
-        placeholder="Enter the name of the board"
+        placeholder="Enter the name of the List"
         value={inputs.name}
         onChangeText={(text) => inputHandler('name', text)}
       />
       <TextInput
         styles={styles.textInput}
-        placeholder="Enter the description of the board"
-        value={inputs.description}
-        onChangeText={(text) => inputHandler('description', text)}
+        placeholder="Enter the color of the board"
+        value={inputs.color}
+        onChangeText={(text) => inputHandler('color', text)}
       />
-      <TouchableOpacity
-        onPress={() => takePhoto()}
-      >
-        <Text>
-          {'Take photo with camera '}
-          <Entypo styles={styles.icon} name="camera" />
-        </Text>
-
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => selectFromCameraRoll()}
-      >
-        <Text>
-          {'Select photo form camera roll '}
-          <Entypo styles={styles.icon} name="image" />
-        </Text>
-      </TouchableOpacity>
       <Button
         title="Submit"
         onPress={() => { submit(inputs); closeModal(); clearInputs(); }}

@@ -33,7 +33,7 @@ Board.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
   thumbnailPhoto: PropTypes.string.isRequired,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 

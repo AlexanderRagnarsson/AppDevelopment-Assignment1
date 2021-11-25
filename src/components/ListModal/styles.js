@@ -7,6 +7,9 @@ export default StyleSheet.create({
     marginBottom: 20,
   },
   textInput: {
-    flex: 1,
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
 });

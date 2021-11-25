@@ -16,7 +16,6 @@ function Board({ route }) {
         style={styles.Image}
         source={{ uri: thumbnailPhoto }}
       />
-      <Text>NONONO</Text>
       <TheBoard
         {...{
           id, name, description, thumbnailPhoto, lists, tasks,

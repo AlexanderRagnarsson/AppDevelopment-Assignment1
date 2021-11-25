@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, Text, FlatList, TouchableHighlight,
+  View, Text,
 } from 'react-native';
 import styles from './styles';
-//import styles from './styles';
-//import Task from '../Task';
 
-function Task({ id, name, description, isFinished, listId }) {
+/*  import styles from './styles';
+import Task from '../Task'; */
+
+function Task({
+  id, name, description, isFinished, listId,
+}) {
   // console.log(name);
   // console.log(description);
   return (

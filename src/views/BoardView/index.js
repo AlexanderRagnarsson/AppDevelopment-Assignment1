@@ -28,11 +28,16 @@ function Board({ route }) {
     id, name, description = '', thumbnailPhoto,
   } = boardState;
 
+  const [theLists] = useState(lists);
+
   // Sumbit a new list
   const submitFunc = (newList) => {
-    const nextId = lists.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
-    setLists([{ id: nextId, ...newList, boardId: id },
-      ...lists.filter((list) => (list.id !== newList.id))]);
+    const nextId = theLists.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
+    const theboardId = id;
+    // setLists([{ id: nextId, ...newList, boardId: id },
+    //   ...lists.filter((list) => (list.id !== newList.id))]);
+    theLists.push({ id: nextId, ...newList, boardId: theboardId });
+    setLists(theLists);
   };
 
   // Adding a new image for the board
@@ -83,7 +88,7 @@ function Board({ route }) {
       <Text>Lists:</Text>
       <BoardLists
         {...{
-          id, lists, tasks,
+          id, lists: theLists, tasks,
         }}
       />
       <ListModal

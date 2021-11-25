@@ -14,7 +14,7 @@ function Board({ route }) {
 
   return (
     <View>
-      <Text>{`${id} ${name} ${description} ${lists} ${tasks}`}</Text>
+      <Text>{`${id} ${name} ${description}`}</Text>
       <Animated.Image
         style={styles.Image}
         source={{ uri: thumbnailPhoto }}
@@ -22,7 +22,7 @@ function Board({ route }) {
       <Text>NONONO</Text>
       <TheBoard
         {...{ id, name, description, thumbnailPhoto, lists, tasks }}
-        // {...{ ...data, navigate }}
+      // {...{ ...data, navigate }}
       />
     </View>
   );

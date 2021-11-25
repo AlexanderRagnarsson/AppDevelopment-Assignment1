@@ -9,13 +9,13 @@ function BoardPreview({
   id, name, description = '', thumbnailPhoto, lists, tasks, navigate,
 }) {
   const boardlists = lists.filter((item) => item.boardId === id);
-  const taskslists = tasks.filter((item) => item.listId === boardlists.id);
+  // const taskslists = tasks.filter((item) => item.listId in boardlists);
   // console.log(boardlists);
   return (
     <View>
       <Text>{`${id} ${name} ${description} `}</Text>
       <TouchableHighlight
-        onPress={() => navigate('Board', { ...{id, name, description, thumbnailPhoto, lists: boardlists, tasks: taskslists, navigate} })}>
+        onPress={() => navigate('Board', { ...{ id, name, description, thumbnailPhoto, lists: boardlists, tasks: tasks, navigate } })}>
         <Animated.Image
           style={styles.Image}
           source={{ uri: thumbnailPhoto }}
@@ -32,7 +32,7 @@ BoardPreview.propTypes = {
   thumbnailPhoto: PropTypes.string.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-  navigate: PropTypes.objectOf(PropTypes.array).isRequired,
+  navigate: PropTypes.func.isRequired,
 };
 
 BoardPreview.defaultProps = {

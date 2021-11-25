@@ -6,4 +6,7 @@ export default StyleSheet.create({
     marginTop: 20,
     marginBottom: 20,
   },
+  textInput: {
+    flex: 1,
+  },
 });

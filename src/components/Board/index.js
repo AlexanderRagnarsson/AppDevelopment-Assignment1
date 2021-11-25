@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Text, View, TouchableHighlight, Animated } from 'react-native';
+import { Text, View, TouchableHighlight } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 function Board({
@@ -8,11 +8,10 @@ function Board({
 }) {
   return (
     <View>
-      <TouchableHighlight
-        onPress={() => navigate('Board', { ...{id, name, description, thumbnailPhoto, lists: boardlists, tasks: taskslists, navigate} })}>
-          <AntDesign name="delete" size={50} color="black" />
+      <TouchableHighlight>
+        <AntDesign name="delete" size={50} color="black" />
       </TouchableHighlight>
-      <Text>{`FFS: ${id} ${name} ${description}  ${thumbnailPhoto} THE LIST NAME: ${lists[0].name} `}</Text>
+      <Text>{`FFS: ${id} ${name} ${description}  ${thumbnailPhoto} `}</Text>
     </View>
   );
 }

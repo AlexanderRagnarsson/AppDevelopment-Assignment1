@@ -15,7 +15,12 @@ function BoardPreview({
     <View>
       <Text>{`${id} ${name} ${description} `}</Text>
       <TouchableHighlight
-        onPress={() => navigate('Board', { ...{id, name, description, thumbnailPhoto, lists: boardlists, tasks: taskslists, navigate} })}>
+        onPress={() => navigate('Board', {
+          ...{
+            id, name, description, thumbnailPhoto, lists: boardlists, tasks: taskslists, navigate,
+          },
+        })}
+      >
         <Animated.Image
           style={styles.Image}
           source={{ uri: thumbnailPhoto }}

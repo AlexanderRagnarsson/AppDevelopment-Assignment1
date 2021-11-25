@@ -12,23 +12,6 @@ function ListModal({
   closeModal,
   submit,
 }) {
-  // const [inputs, setInputs] = useState({
-  //   name: '',
-  //   color: 'blue',
-  // });
-
-  // const inputHandler = (name, value) => {
-  //   setInputs({
-  //     ...inputs,
-  //     [name]: value,
-  //   });
-  // };
-
-  // const clearInputs = () => {
-  //   inputs.name = '';
-  //   inputs.color = '';
-  // };
-
   return (
     <ListEditModal
       list={{ name: '', color: 'blue' }}

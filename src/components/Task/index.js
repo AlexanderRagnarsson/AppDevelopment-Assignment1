@@ -4,13 +4,10 @@ import {
   View, Text, FlatList, TouchableHighlight,
 } from 'react-native';
 import styles from './styles';
+//import styles from './styles';
+//import Task from '../Task';
 
-/*  import styles from './styles';
-import Task from '../Task'; */
-
-function Task({
-  id, name, description, isFinished, listId,
-}) {
+function Task({ id, name, description, isFinished, listId }) {
   // console.log(name);
   // console.log(description);
   return (

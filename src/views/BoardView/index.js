@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { View, Text, Animated } from 'react-native';
 import TheBoard from '../../components/Board';
@@ -50,7 +50,7 @@ function Board({ route }) {
 }
 
 Board.propTypes = {
-  route: PropTypes.object.isRequired,
+  route: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default Board;

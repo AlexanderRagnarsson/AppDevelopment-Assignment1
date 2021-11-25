@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
-function BoardModal({
+function Modal({
   isOpen,
   closeModal,
   title,
@@ -28,7 +28,7 @@ function BoardModal({
   );
 }
 
-BoardModal.propTypes = {
+Modal.propTypes = {
   // Is the modal open
   isOpen: PropTypes.bool.isRequired,
   // Function called when modal is open
@@ -39,4 +39,4 @@ BoardModal.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default BoardModal;
+export default Modal;

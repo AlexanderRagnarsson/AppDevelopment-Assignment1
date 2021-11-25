@@ -8,7 +8,6 @@ import styles from './styles';
 function BoardPreview({
   id, name, description = '', thumbnailPhoto, lists, tasks, navigate,
 }) {
-  const boardlists = lists.filter((item) => item.boardId === id);
   // const taskslists = tasks.filter((item) => item.listId in boardlists);
   // console.log(boardlists);
   // console.log(thumbnailPhoto);
@@ -18,7 +17,7 @@ function BoardPreview({
       <TouchableHighlight
         onPress={() => navigate('Board', {
           ...{
-            id, name, description, thumbnailPhoto, lists: boardlists, tasks,
+            id, name, description, thumbnailPhoto, lists, tasks,
           },
         })}
       >

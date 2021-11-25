@@ -15,7 +15,7 @@ function TaskList({
 }) {
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
   const [data, setData] = useState(tasks);
-  console.log(data);
+  // console.log(data);
   const submitFunc = (task) => {
     const nextId = data.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
     const taskListId = id;

@@ -8,8 +8,6 @@ import styles from './styles';
 import Toolbar from '../Toolbar';
 import TaskModal from '../TaskModal';
 
-
-
 function TaskList({
   id, name, color, boardId, tasks,
 }) {

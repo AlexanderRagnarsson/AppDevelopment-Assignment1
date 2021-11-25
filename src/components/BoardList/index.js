@@ -5,8 +5,12 @@ import BoardPreview from '../BoardPreview';
 import styles from './styles';
 
 function BoardList({
-  boards, lists, tasks, navigate,
+  boards, setBoards, navigate,
 }) {
+  const deleteBoard = (boardId) => {
+    setBoards(boards.filter((item) => (item.id !== boardId)));
+  };
+
   return (
     <View styles={styles.listContainer}>
       <FlatList
@@ -14,7 +18,7 @@ function BoardList({
         data={boards}
         renderItem={({ item }) => (
           <BoardPreview {...{
-            ...item, lists, tasks, navigate,
+            board: item, navigate, deleteBoard,
           }}
           />
         )}
@@ -26,9 +30,8 @@ function BoardList({
 
 BoardList.propTypes = {
   navigate: PropTypes.func.isRequired,
+  setBoards: PropTypes.func.isRequired,
   boards: PropTypes.arrayOf(PropTypes.object).isRequired,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default BoardList;

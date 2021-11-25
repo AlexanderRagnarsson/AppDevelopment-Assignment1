@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TaskList from '../TaskList';
 
 function Board({
-  id, name, description = '', thumbnailPhoto, lists, tasks,
+  id, lists, tasks,
 }) {
   const boardlists = lists.filter((item) => item.boardId === id);
 
@@ -24,15 +24,8 @@ function Board({
 
 Board.propTypes = {
   id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  thumbnailPhoto: PropTypes.string.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-Board.defaultProps = {
-  description: '',
 };
 
 export default Board;

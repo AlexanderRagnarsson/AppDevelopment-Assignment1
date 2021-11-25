@@ -7,19 +7,21 @@ import { AntDesign } from '@expo/vector-icons';
 import styles from './styles';
 
 function BoardPreview({
-  id, name, description = '', thumbnailPhoto, navigate, deleteBoard,
+  board, navigate, deleteBoard,
 }) {
   // const taskslists = tasks.filter((item) => item.listId in boardlists);
   // console.log(boardlists);
   // console.log(thumbnailPhoto);
+  console.log(board);
+  const {
+    id, name, description = '', thumbnailPhoto,
+  } = board;
   return (
     <View>
       <Text>{`${id} ${name} ${description} `}</Text>
       <TouchableHighlight
         onPress={() => navigate('Board', {
-          ...{
-            id, name, description, thumbnailPhoto,
-          },
+          board,
         })}
       >
         <Animated.Image
@@ -37,16 +39,14 @@ function BoardPreview({
 }
 
 BoardPreview.propTypes = {
-  id: PropTypes.number.isRequired,
-  description: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  thumbnailPhoto: PropTypes.string.isRequired,
+  board: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    description: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    thumbnailPhoto: PropTypes.string.isRequired,
+  }).isRequired,
   navigate: PropTypes.func.isRequired,
   deleteBoard: PropTypes.func.isRequired,
-};
-
-BoardPreview.defaultProps = {
-  description: '',
 };
 
 export default BoardPreview;

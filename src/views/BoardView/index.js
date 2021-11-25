@@ -4,29 +4,45 @@ import {
   View, Text, Animated, TouchableHighlight,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-import TheBoard from '../../components/Board';
+import BoardLists from '../../components/Board';
 import styles from './styles';
-import BoardModal from '../../components/ListModal';
+import ListModal from '../../components/ListModal';
 import Toolbar from '../../components/Toolbar';
+import BoardEditModal from '../../components/BoardEditModal';
+import * as imageService from '../../services/imageService';
+import * as fileService from '../../services/fileService';
 
 function Board({ route }) {
   const {
-    id, name, description, thumbnailPhoto, boards, lists, tasks, setBoards, setLists, setTasks,
+    board, boards, lists, tasks, setBoards, setLists, setTasks,
   } = route.params;
 
   // Is the list creating modal open?
   const [isListModalOpen, setIsListModalOpen] = useState(false);
+  // Is the board editing modal open?
+  const [isBoardEditModalOpen, setIsBoardEditModalOpen] = useState(false);
+  // The current Board
+  const [boardState, setBoard] = useState(board);
 
-  // Edit the board
-  const editBoard = (newBoard) => {
-    setBoards([newBoard, ...boards.filter((board) => (board.id !== newBoard.id))]);
-  };
+  const {
+    id, name, description = '', thumbnailPhoto,
+  } = boardState;
+
+  const [theLists] = useState(lists);
 
   // Sumbit a new list
   const submitFunc = (newList) => {
-    const nextId = lists.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
-    setLists([{ id: nextId, ...newList, boardId: id },
-      ...lists.filter((list) => (list.id !== newList.id))]);
+    const nextId = theLists.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
+    const theboardId = id;
+    // setLists([{ id: nextId, ...newList, boardId: id },
+    //   ...lists.filter((list) => (list.id !== newList.id))]);
+    theLists.push({ id: nextId, ...newList, boardId: theboardId });
+    setLists(theLists);
+  };
+
+  const editSubmit = async (newBoard) => {
+    setBoards([newBoard, ...boards.filter((boardIt) => (boardIt.id !== newBoard.id))]);
+    setBoard(newBoard);
   };
 
   return (
@@ -41,20 +57,28 @@ function Board({ route }) {
         source={{ uri: thumbnailPhoto }}
       />
       <TouchableHighlight
-        onPress={() => { editBoard(); }}
+        onPress={() => { setIsBoardEditModalOpen(true); }}
       >
-        <AntDesign name="delete" size={50} color="black" />
+        <AntDesign name="edit" size={50} color="black" />
       </TouchableHighlight>
       <Text>Lists:</Text>
-      <TheBoard
+      <BoardLists
         {...{
-          id, name, description, thumbnailPhoto, lists, tasks,
+          id, lists: theLists, tasks,
         }}
       />
-      <BoardModal
+      <ListModal
         isOpen={isListModalOpen}
         closeModal={() => setIsListModalOpen(false)}
         submit={submitFunc}
+      />
+      <BoardEditModal
+        isOpen={isBoardEditModalOpen}
+        closeModal={() => setIsBoardEditModalOpen(false)}
+        submit={editSubmit}
+        board={{
+          id, name, description, thumbnailPhoto,
+        }}
       />
     </View>
   );

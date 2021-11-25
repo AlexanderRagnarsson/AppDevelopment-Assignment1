@@ -32,7 +32,8 @@ function Boards({ navigation: { navigate } }) {
   const submitFunc = async ({ name, description, thumbnailPhoto }) => {
     const nextId = boards.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
 
-    await thumbnailPhoto.then(
+    // Wait to get the photo taken from the fileSystem
+    Promise.resolve(thumbnailPhoto).then(
       (value) => {
         const board = {
           id: nextId, name, description, thumbnailPhoto: value,

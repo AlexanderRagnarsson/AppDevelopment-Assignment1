@@ -18,7 +18,7 @@ function BoardList({
         data={boards}
         renderItem={({ item }) => (
           <BoardPreview {...{
-            ...item, navigate, deleteBoard,
+            board: item, navigate, deleteBoard,
           }}
           />
         )}

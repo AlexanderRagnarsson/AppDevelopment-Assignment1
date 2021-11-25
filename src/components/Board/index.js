@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TaskList from '../TaskList';
 
 function Board({
-  id, name, description = '', thumbnailPhoto, lists, tasks,
+  id, lists, tasks,
 }) {
   const boardlists = lists.filter((item) => item.boardId === id);
 

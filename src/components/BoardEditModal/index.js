@@ -15,12 +15,7 @@ function BoardEditModal({
   selectFromCameraRoll,
   submit,
 }) {
-  const [inputs, setInputs] = useState({
-    name: board.name,
-    description: board.description,
-    thumbnailPhoto: 'https://i.ytimg.com/vi/m_PecfbEWik/hq720.jpg?sqp=-oaymwEcCNAFEJQDSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA6fg81J4DQU-X6hIVmbneH0gTfbA',
-  });
-
+  const [inputs, setInputs] = useState(board);
   const inputHandler = (name, value) => {
     setInputs({
       ...inputs,
@@ -28,16 +23,11 @@ function BoardEditModal({
     });
   };
 
-  const clearInputs = () => {
-    inputs.name = '';
-    inputs.description = '';
-  };
-
   return (
     <Modal
       isOpen={isOpen}
-      closeModal={() => { closeModal(); clearInputs(); }}
-      title="Create a board"
+      closeModal={() => { closeModal(); }}
+      title="Edit the board"
     >
       <TextInput
         styles={styles.textInput}
@@ -55,7 +45,7 @@ function BoardEditModal({
         onPress={() => inputHandler('thumbnailPhoto', takePhoto())}
       >
         <Text>
-          {'Take photo with camera '}
+          {'Take new photo with camera '}
           <Entypo styles={styles.icon} name="camera" />
         </Text>
       </TouchableOpacity>
@@ -63,7 +53,7 @@ function BoardEditModal({
         onPress={() => selectFromCameraRoll()}
       >
         <Text>
-          {'Select photo form camera roll '}
+          {'Select new photo form camera roll '}
           <Entypo styles={styles.icon} name="image" />
         </Text>
       </TouchableOpacity>
@@ -72,14 +62,13 @@ function BoardEditModal({
         onPress={() => {
           submit(inputs);
           closeModal();
-          clearInputs();
         }}
       />
     </Modal>
   );
 }
 
-BoardModal.propTypes = {
+BoardEditModal.propTypes = {
   // The board the we are currently editing
   board: PropTypes.shape({
     name: PropTypes.string,
@@ -98,4 +87,4 @@ BoardModal.propTypes = {
   selectFromCameraRoll: PropTypes.func.isRequired,
 };
 
-export default BoardModal;
+export default BoardEditModal;

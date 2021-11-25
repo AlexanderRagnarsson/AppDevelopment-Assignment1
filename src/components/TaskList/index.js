@@ -55,7 +55,7 @@ function TaskList({
           id, name, color, boardId,
         }}
       />
-      <Text>{`List: ${id}, Name: ${name}`}</Text>
+      <Text>{`List: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}</Text>
       <Toolbar
         onAdd={() => setIsTaskModalOpen(true)}
         addString="Add task"

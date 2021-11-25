@@ -1,10 +1,5 @@
-import React, { useState } from 'react';
-import {
-  TextInput, Button,
-} from 'react-native';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../Modal';
-import styles from './styles';
 import ListEditModal from '../ListEditModal';
 
 function ListModal({

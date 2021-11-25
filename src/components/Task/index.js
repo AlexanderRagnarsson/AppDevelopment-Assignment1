@@ -13,11 +13,20 @@ function Task({
 }) {
   // console.log(name);
   // console.log(description);
+  const finstatus = isFinished ? 'Finished!' : 'Not finished';
   return (
     <View>
-      <Text style={styles.TaskText}>{`id: ${id} name: ${name} descr: ${description}`}</Text>
+      <Text style={styles.TaskText}>{`id: ${id}, Name: ${name}, Descr: ${description}, Status:  ${finstatus}`}</Text>
     </View>
   );
 }
+
+Task.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  isFinished: PropTypes.bool.isRequired,
+  listId: PropTypes.number.isRequired,
+};
 
 export default Task;

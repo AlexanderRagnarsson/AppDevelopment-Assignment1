@@ -24,15 +24,8 @@ function Board({
 
 Board.propTypes = {
   id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  thumbnailPhoto: PropTypes.string.isRequired,
   lists: PropTypes.arrayOf(PropTypes.object).isRequired,
   tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-Board.defaultProps = {
-  description: '',
 };
 
 export default Board;

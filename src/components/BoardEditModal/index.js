@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
-import { Entypo } from '@expo/vector-icons';
-import {
-  TouchableOpacity, TextInput, Button, Text,
-} from 'react-native';
+import { TextInput, Button } from 'react-native';
 import PropTypes from 'prop-types';
 import Modal from '../Modal';
 import styles from './styles';
+import PhotoSelection from '../PhotoSelection';
 
 function BoardEditModal({
   board,
   isOpen,
   closeModal,
-  takePhoto,
-  selectFromCameraRoll,
   submit,
 }) {
   const [inputs, setInputs] = useState(board);
@@ -23,10 +19,14 @@ function BoardEditModal({
     });
   };
 
+  const clearInputs = () => {
+    setInputs(board);
+  };
+
   return (
     <Modal
       isOpen={isOpen}
-      closeModal={() => { closeModal(); }}
+      closeModal={() => { closeModal(); clearInputs(); }}
       title="Edit the board"
     >
       <TextInput
@@ -41,27 +41,16 @@ function BoardEditModal({
         value={inputs.description}
         onChangeText={(text) => inputHandler('description', text)}
       />
-      <TouchableOpacity
-        onPress={() => inputHandler('thumbnailPhoto', takePhoto())}
-      >
-        <Text>
-          {'Take new photo with camera '}
-          <Entypo styles={styles.icon} name="camera" />
-        </Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => selectFromCameraRoll()}
-      >
-        <Text>
-          {'Select new photo form camera roll '}
-          <Entypo styles={styles.icon} name="image" />
-        </Text>
-      </TouchableOpacity>
+      <PhotoSelection
+        value={inputs.thumbnailPhoto}
+        onChange={(value) => { inputHandler('thumbnailPhoto', value); }}
+      />
       <Button
         title="Submit"
         onPress={() => {
           submit(inputs);
           closeModal();
+          clearInputs();
         }}
       />
     </Modal>
@@ -81,10 +70,6 @@ BoardEditModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   // Function to submit the new Board
   submit: PropTypes.func.isRequired,
-  // Function to take a photo
-  takePhoto: PropTypes.func.isRequired,
-  // Function to select photo from camera roll
-  selectFromCameraRoll: PropTypes.func.isRequired,
 };
 
 export default BoardEditModal;

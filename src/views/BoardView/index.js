@@ -40,33 +40,9 @@ function Board({ route }) {
     setLists(theLists);
   };
 
-  // Adding a new image for the board
-  const addImage = async (photo) => {
-    const newImage = await fileService.addImage(photo);
-    return newImage.filename;
-  };
-
-  // Taking a photo for the board in the edit
-  const takePhoto = async () => {
-    let photo = await imageService.takePhoto();
-
-    if (photo.length > 0) {
-      photo = await addImage(photo);
-    }
-
-    return photo;
-  };
-
-  // Submit the edit to the board
-  const submitEdit = async (boardIn) => {
-    // Wait to get the photo taken from the fileSystem
-    Promise.resolve(thumbnailPhoto).then(
-      (value) => {
-        const newBoard = { ...boardIn, thumbnailPhoto: value };
-        setBoards([newBoard, ...boards.filter((boardIt) => (boardIt.id !== newBoard.id))]);
-        setBoard(newBoard);
-      },
-    );
+  const editSubmit = async (newBoard) => {
+    setBoards([newBoard, ...boards.filter((boardIt) => (boardIt.id !== newBoard.id))]);
+    setBoard(newBoard);
   };
 
   return (
@@ -99,9 +75,7 @@ function Board({ route }) {
       <BoardEditModal
         isOpen={isBoardEditModalOpen}
         closeModal={() => setIsBoardEditModalOpen(false)}
-        takePhoto={takePhoto}
-        selectFromCameraRoll={() => {}}
-        submit={submitEdit}
+        submit={editSubmit}
         board={{
           id, name, description, thumbnailPhoto,
         }}

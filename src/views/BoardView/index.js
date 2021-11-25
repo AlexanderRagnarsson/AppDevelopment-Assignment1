@@ -9,8 +9,6 @@ import styles from './styles';
 import ListModal from '../../components/ListModal';
 import Toolbar from '../../components/Toolbar';
 import BoardEditModal from '../../components/BoardEditModal';
-import * as imageService from '../../services/imageService';
-import * as fileService from '../../services/fileService';
 
 function Board({ route }) {
   const {
@@ -64,7 +62,7 @@ function Board({ route }) {
       <Text>Lists:</Text>
       <BoardLists
         {...{
-          id, lists: theLists, tasks,
+          id, lists: theLists, setLists, tasks,
         }}
       />
       <ListModal

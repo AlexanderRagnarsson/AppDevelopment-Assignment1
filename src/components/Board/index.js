@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TaskList from '../TaskList';
 
 function Board({
-  id, lists, tasks,
+  id, lists, setLists, tasks,
 }) {
   const boardlists = lists.filter((item) => item.boardId === id);
 
@@ -14,7 +14,7 @@ function Board({
         numColumns={1}
         data={boardlists}
         renderItem={({ item }) => (
-          <TaskList {...{ ...item, tasks }} />
+          <TaskList {...{ list: item, lists, setLists, tasks }} />
         )}
         keyExtractor={(board) => board.id}
       />

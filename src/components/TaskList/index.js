@@ -21,11 +21,10 @@ function TaskList({
     setData(data);
   };
 
-
   const tasklist = tasks.filter((item) => item.listId === id);
   return (
     <View>
-      <Text>{`List: ${id}, Name: ${name}`}</Text>
+      <Text>{`List: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}</Text>
       <Toolbar
         onAdd={() => setIsTaskModalOpen(true)}
         addString="Add task"
@@ -46,5 +45,13 @@ function TaskList({
     </View>
   );
 }
+
+TaskList.propTypes = {
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  boardId: PropTypes.number.isRequired,
+  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default TaskList;

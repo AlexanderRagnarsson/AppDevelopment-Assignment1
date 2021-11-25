@@ -5,13 +5,15 @@ import { FlatList, Text, View, TouchableHighlight } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 function Board({
-  id, name, description = '', thumbnailPhoto, data, tasks,
+  id, name, description = '', thumbnailPhoto, data, tasks, deleteBoard,
 }) {
   // console.log(...tasks)
   const boardlists = data.filter((item) => item.boardId === id);
   return (
     <View>
-      <TouchableHighlight>
+      <TouchableHighlight
+        onPress
+      >
         <AntDesign name="delete" size={50} color="black" />
       </TouchableHighlight>
       <FlatList

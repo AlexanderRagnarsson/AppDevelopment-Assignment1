@@ -20,9 +20,7 @@ function Board({ route }) {
     const nextId = data.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
     const theboardId = id;
     data.push({ id: nextId, ...list, boardId: theboardId });
-    setData([
-      ...data,
-    ]);
+    setData(data);
   };
 
   return (

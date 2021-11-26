@@ -17,6 +17,9 @@ function Reducer(state, action) {
     case 'ADD_BOARD':
       return { ...state, boards: [...state.boards, action.payload] };
     case 'DELETE_BOARD':
+      // const theLists =  state.lists.filter((list) => list.boardId === action.payload);
+      // state.tasks.filter((task) => task.listId !== state.lists.);
+      // state.lists.filter((list) => list.boardId === action.payload);
       return { ...state, boards: state.boards.filter((board) => board.id !== action.payload) };
     case 'EDIT_BOARD':
       return {

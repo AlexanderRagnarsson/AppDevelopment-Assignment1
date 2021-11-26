@@ -62,12 +62,6 @@ function Board({ route }) {
         >
           <AntDesign name="edit" size={30} color="black" />
         </TouchableHighlight>
-        {'To Delete board: '}
-        <TouchableHighlight
-          onPress={() => { deleteBoard(true); }}
-        >
-          <AntDesign name="delete" size={30} color="black" />
-        </TouchableHighlight>
       </Text>
       <Animated.Image
         style={styles.Image}

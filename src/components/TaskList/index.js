@@ -55,6 +55,11 @@ function TaskList({
     dispatch({ type: 'EDIT_LIST', payload: newList });
   };
 
+  const deleteList = (listId) => {
+    dispatch({ type: 'DELETE_LIST', payload: listId });
+    // setBoards(boards.filter((item) => (item.id !== boardId)));
+  };
+
   const tasklist = tasks.filter((item) => item.listId === id);
   return (
     <View>
@@ -73,6 +78,11 @@ function TaskList({
       />
       <Text>
         {`List: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}
+        <TouchableHighlight
+          onPress={() => { deleteList(id); }}
+        >
+          <AntDesign name="delete" size={20} color="black" />
+        </TouchableHighlight>
       </Text>
       <Toolbar
         onAdd={() => setIsTaskModalOpen(id)}
@@ -87,15 +97,7 @@ function TaskList({
         numColumns={1}
         data={tasklist}
         renderItem={({ item }) => (
-          <View>
-            <Text>
-              {`Delete task with id: ${id}  `}
-              <TouchableHighlight>
-                <AntDesign name="delete" size={20} color="black" />
-              </TouchableHighlight>
-            </Text>
-            <Task style={styles.Task} {...{ ...item }} />
-          </View>
+          <Task style={styles.Task} {...{ ...item }} />
         )}
         keyExtractor={(board) => board.id}
       />

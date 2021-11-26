@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View, Text, FlatList, TouchableHighlight,
 } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 import Task from '../Task';
 import styles from './styles';
@@ -11,35 +12,50 @@ import TaskModal from '../TaskModal';
 import ListEditModal from '../ListEditModal';
 
 function TaskList({
-  list, lists, setLists, tasks,
+  id,
 }) {
-  // The modal to add new tasks
-  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
-  // The modal the edit this tasklist
-  const [isListEditModalOpen, setIsListEditModalOpen] = useState(false);
-  // The current list
-  const [listState, setList] = useState(list);
-  // The task list
-  const [tasksData, setTasksData] = useState(tasks);
+  // // The modal to add new tasks
+  // const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  // // The modal the edit this tasklist
+  // const [isListEditModalOpen, setIsListEditModalOpen] = useState(false);
+  // // The current list
+  // const [listState, setList] = useState(list);
+  // // The task list
+  // const [tasksData, setTasksData] = useState(tasks);
 
   const {
-    id, name, color, boardId,
-  } = listState;
+    lists, tasks, isTaskModalOpen, isListEditModalOpen,
+  } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  const {
+    name, color, boardId,
+  } = lists.filter((list) => list.id === id)[0];
+
+  const setIsListEditModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_LIST_EDIT_MODAL', payload: value });
+  };
+
+  const setIsTaskModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_TASK_MODAL', payload: value });
+  };
 
   // Adding the new task to the tasks
   const submitTask = (task) => {
-    const nextId = tasksData.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
-    const taskListId = id;
-    tasksData.push({ id: nextId, ...task, listId: taskListId });
-    setTasksData(tasksData);
+    const nextId = tasks.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
+    // const taskListId = id;
+    // tasksData.push({ id: nextId, ...task, listId: taskListId });
+    // setTasksData(tasksData);
+    dispatch({ type: 'ADD_TASK', payload: { id: nextId, ...task, listId: id } });
   };
 
   const listEditSubmit = async (newList) => {
-    setLists([...lists.filter((listIt) => (listIt.id !== newList.id)), newList]);
-    setList(newList);
+    // setLists([...lists.filter((listIt) => (listIt.id !== newList.id)), newList]);
+    // setList(newList);
+    dispatch({ type: 'EDIT_LIST', payload: newList });
   };
 
-  const tasklist = tasksData.filter((item) => item.listId === id);
+  const tasklist = tasks.filter((item) => item.listId === id);
   return (
     <View>
       <TouchableHighlight
@@ -78,15 +94,7 @@ function TaskList({
 }
 
 TaskList.propTypes = {
-  list: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    color: PropTypes.string,
-    boardId: PropTypes.number,
-  }).isRequired,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setLists: PropTypes.func.isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+  id: PropTypes.number.isRequired,
 };
 
 export default TaskList;

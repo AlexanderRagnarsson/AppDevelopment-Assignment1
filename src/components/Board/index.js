@@ -1,11 +1,13 @@
 import React from 'react';
 import { FlatList, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import TaskList from '../TaskList';
 
 function Board({
-  id, lists, setLists, tasks,
+  id,
 }) {
+  const { lists } = useSelector((state) => state);
   const boardlists = lists.filter((item) => item.boardId === id);
 
   return (
@@ -14,7 +16,7 @@ function Board({
         numColumns={1}
         data={boardlists}
         renderItem={({ item }) => (
-          <TaskList {...{ list: item, lists, setLists, tasks }} />
+          <TaskList {...{ id: item.id }} />
         )}
         keyExtractor={(board) => board.id}
       />
@@ -24,8 +26,6 @@ function Board({
 
 Board.propTypes = {
   id: PropTypes.number.isRequired,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Board;

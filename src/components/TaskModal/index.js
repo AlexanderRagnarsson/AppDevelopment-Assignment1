@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 import TaskEditModal from '../TaskEditModal';
 
 function TaskModal({
+  id,
   isOpen,
   closeModal,
   submit,
 }) {
   return (
     <TaskEditModal
-      task={{ name: '', description: '', isFinished: false }}
+      task={{ name: '', description: '', isFinished: false, listId: id }}
       isOpen={isOpen}
       closeModal={closeModal}
       title="Create a task"

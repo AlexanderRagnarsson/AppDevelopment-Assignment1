@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import BoardList from '../../components/BoardList';
 import BoardModal from '../../components/BoardModal';
 import Toolbar from '../../components/Toolbar';
+import styles from './styles';
 
 function Boards({ navigation: { navigate } }) {
   const { boards, isBoardModalOpen } = useSelector(
@@ -32,12 +33,14 @@ function Boards({ navigation: { navigate } }) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.view}>
       <Toolbar
         onAdd={() => setIsBoardModalOpen(true)}
         addString="Add board"
       />
-      <Text>BOARDS:</Text>
+      <Text style={styles.BigText}>
+        BOARDS:
+      </Text>
       <BoardList
         {...{ navigate }}
       />

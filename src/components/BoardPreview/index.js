@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   View, Text, Animated, TouchableHighlight,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import DeleteModal from '../DeleteModal';
 import styles from './styles';
 
 function BoardPreview({
@@ -20,12 +21,14 @@ function BoardPreview({
     // setBoards(boards.filter((item) => (item.id !== boardId)));
   };
 
+  const [deleteBoardModalOpen, setDeleteBoardModalOpen] = useState(-1);
+
   return (
     <View style={styles.view}>
       <Text>
         {`${name}`}
         <TouchableHighlight
-          onPress={() => { deleteBoard(id); }}
+          onPress={() => { setDeleteBoardModalOpen(id); }}
         >
           <AntDesign name="delete" size={25} color="black" />
         </TouchableHighlight>
@@ -41,6 +44,12 @@ function BoardPreview({
           source={{ uri: thumbnailPhoto }}
         />
       </TouchableHighlight>
+      <DeleteModal
+        isOpen={deleteBoardModalOpen === id}
+        closeModal={() => { setDeleteBoardModalOpen(-1); }}
+        onConfirm={() => deleteBoard(id)}
+        itemName={` ${name}`}
+      />
     </View>
   );
 }

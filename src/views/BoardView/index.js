@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View, Text, Animated, TouchableHighlight,
 } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 import BoardLists from '../../components/Board';
 import styles from './styles';
@@ -11,36 +12,41 @@ import Toolbar from '../../components/Toolbar';
 import BoardEditModal from '../../components/BoardEditModal';
 
 function Board({ route }) {
+  const { id } = route.params;
   const {
-    board, boards, lists, tasks, setBoards, setLists, setTasks,
-  } = route.params;
+    boards, lists, isListModalOpen, isBoardEditModalOpen,
+  } = useSelector((state) => state);
 
-  // Is the list creating modal open?
-  const [isListModalOpen, setIsListModalOpen] = useState(false);
-  // Is the board editing modal open?
-  const [isBoardEditModalOpen, setIsBoardEditModalOpen] = useState(false);
-  // The current Board
-  const [boardState, setBoard] = useState(board);
+  console.log(id);
+  console.log(boards, lists);
+  const dispatch = useDispatch();
+
+  const setIsListModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_LIST_MODAL', payload: value });
+  };
+
+  const setIsBoardEditModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_BOARD_EDIT_MODAL', payload: value });
+  };
 
   const {
-    id, name, description = '', thumbnailPhoto,
-  } = boardState;
-
-  const [theLists] = useState(lists);
+    name, description = '', thumbnailPhoto,
+  } = boards.filter((boardIt) => boardIt.id === id)[0];
 
   // Sumbit a new list
   const submitFunc = (newList) => {
-    const nextId = theLists.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
-    const theboardId = id;
+    const nextId = lists.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
     // setLists([{ id: nextId, ...newList, boardId: id },
     //   ...lists.filter((list) => (list.id !== newList.id))]);
-    theLists.push({ id: nextId, ...newList, boardId: theboardId });
-    setLists(theLists);
+    // theLists.push({ id: nextId, ...newList, boardId: id });
+    // setLists(theLists);
+    dispatch({ type: 'ADD_LIST', payload: { id: nextId, ...newList, boardId: id } });
   };
 
   const editSubmit = async (newBoard) => {
-    setBoards([newBoard, ...boards.filter((boardIt) => (boardIt.id !== newBoard.id))]);
-    setBoard(newBoard);
+    // setBoards([newBoard, ...boards.filter((boardIt) => (boardIt.id !== newBoard.id))]);
+    // setBoard(newBoard);
+    dispatch({ type: 'EDIT_BOARD', payload: newBoard });
   };
 
   return (
@@ -62,7 +68,7 @@ function Board({ route }) {
       <Text>Lists:</Text>
       <BoardLists
         {...{
-          id, lists: theLists, setLists, tasks,
+          id,
         }}
       />
       <ListModal

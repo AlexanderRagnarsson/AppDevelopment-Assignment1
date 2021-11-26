@@ -90,7 +90,7 @@ function TaskList({
         numColumns={1}
         data={tasklist}
         renderItem={({ item }) => (
-          <Task style={styles.Task} {...{ ...item }} />
+          <Task style={styles.Task} {...{ id: item.id }} />
         )}
         keyExtractor={(board) => board.id}
       />

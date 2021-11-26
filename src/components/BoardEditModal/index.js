@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import { TextInput, Button } from 'react-native';
 import PropTypes from 'prop-types';
@@ -11,7 +12,17 @@ function BoardEditModal({
   closeModal,
   submit,
 }) {
-  const [inputs, setInputs] = useState(board);
+  let setBoard = board;
+
+  if (setBoard.id !== undefined) {
+    const { boards } = useSelector((state) => state);
+    [setBoard] = boards.filter((listIt) => listIt.id === setBoard.id);
+    if (setBoard.description === undefined) {
+      setBoard.description = '';
+    }
+  }
+
+  const [inputs, setInputs] = useState(setBoard);
   const inputHandler = (name, value) => {
     setInputs({
       ...inputs,
@@ -20,7 +31,9 @@ function BoardEditModal({
   };
 
   const clearInputs = () => {
-    setInputs(board);
+    inputs.name = setBoard.name;
+    inputs.description = setBoard.description;
+    inputs.thumbnailPhoto = setBoard.thumbnailPhoto;
   };
 
   return (
@@ -50,7 +63,6 @@ function BoardEditModal({
         onPress={() => {
           submit(inputs);
           closeModal();
-          clearInputs();
         }}
       />
     </Modal>

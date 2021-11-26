@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import {
   TextInput, Button,
@@ -15,7 +16,14 @@ function ListEditModal({
   title,
   submit,
 }) {
-  const [inputs, setInputs] = useState(list);
+  let setList = list;
+
+  if (setList.id !== undefined) {
+    const { lists } = useSelector((state) => state);
+    [setList] = lists.filter((listIt) => listIt.id === setList.id);
+  }
+
+  const [inputs, setInputs] = useState(setList);
 
   const inputHandler = (name, value) => {
     setInputs({
@@ -25,8 +33,8 @@ function ListEditModal({
   };
 
   const clearInputs = () => {
-    inputs.name = list.name;
-    inputs.color = list.color;
+    inputs.name = setList.name;
+    inputs.color = setList.color;
   };
 
   return (

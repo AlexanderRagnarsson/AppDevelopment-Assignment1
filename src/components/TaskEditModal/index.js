@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import {
   TextInput, Button,
@@ -13,7 +14,14 @@ function TaskEditModal({
   title,
   submit,
 }) {
-  const [inputs, setInputs] = useState(task);
+  let setTask = task;
+
+  if (setTask.id !== undefined) {
+    const { tasks } = useSelector((state) => state);
+    [setTask] = tasks.filter((taskIt) => taskIt.id === setTask.id);
+  }
+
+  const [inputs, setInputs] = useState(setTask);
 
   const inputHandler = (name, value) => {
     setInputs({
@@ -23,9 +31,9 @@ function TaskEditModal({
   };
 
   const clearInputs = () => {
-    inputs.name = task.name;
-    inputs.description = task.description;
-    inputs.isFinished = task.isFinished;
+    inputs.name = setTask.name;
+    inputs.description = setTask.description;
+    inputs.isFinished = setTask.isFinished;
   };
 
   return (

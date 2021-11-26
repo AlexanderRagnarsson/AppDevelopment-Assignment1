@@ -56,26 +56,22 @@ function Task({
         >
           <AntDesign name="edit" size={20} color="black" />
         </TouchableHighlight>
-        <TaskEditModal
-          isOpen={isTaskEditModalOpen === id}
-          closeModal={() => setIsTaskEditModalOpen(-1)}
-          submit={taskEditSubmit}
-          title="Edit the task"
-          task={{
-            id, name, description, isFinished, listId,
-          }}
-        />
       </Text>
+      <TaskEditModal
+        isOpen={isTaskEditModalOpen === id}
+        closeModal={() => setIsTaskEditModalOpen(-1)}
+        submit={taskEditSubmit}
+        title="Edit the task"
+        task={{
+          id, name, description, isFinished, listId,
+        }}
+      />
     </View>
   );
 }
 
 Task.propTypes = {
   id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  isFinished: PropTypes.bool.isRequired,
-  listId: PropTypes.number.isRequired,
 };
 
 export default Task;

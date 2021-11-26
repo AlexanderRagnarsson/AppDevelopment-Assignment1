@@ -38,8 +38,6 @@ function TaskList({
     dispatch({ type: 'UPDATE_DELETE_LIST_MODAL', payload: value });
   };
 
-  console.log("func here", setDeleteListModalOpen);
-
   // Adding the new task to the tasks
   const submitTask = (task) => {
     const nextId = tasks.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);

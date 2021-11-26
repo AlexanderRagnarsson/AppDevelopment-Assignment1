@@ -1,11 +1,11 @@
 import React from 'react';
 import { Text, Button } from 'react-native';
+import PropTypes from 'prop-types';
 import Modal from '../Modal';
 
 function DeleteModal({
   isOpen, closeModal, itemName, onConfirm,
 }) {
-  console.log("modal here: ", closeModal);
   return (
     <Modal
       isOpen={isOpen}
@@ -25,6 +25,11 @@ function DeleteModal({
   );
 }
 
-
+DeleteModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  closeModal: PropTypes.func.isRequired,
+  itemName: PropTypes.string.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+};
 
 export default DeleteModal;

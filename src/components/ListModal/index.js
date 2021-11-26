@@ -9,9 +9,10 @@ function ListModal({
 }) {
   return (
     <ListEditModal
-      list={{ name: '', color: 'blue' }}
+      list={{ name: '', color: '' }}
       isOpen={isOpen}
       closeModal={closeModal}
+      title="Create a list"
       submit={submit}
     />
   );

@@ -14,15 +14,7 @@ import ListEditModal from '../ListEditModal';
 function TaskList({
   id,
 }) {
-  // // The modal to add new tasks
-  // const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
-  // // The modal the edit this tasklist
-  // const [isListEditModalOpen, setIsListEditModalOpen] = useState(false);
-  // // The current list
-  // const [listState, setList] = useState(list);
-  // // The task list
-  // const [tasksData, setTasksData] = useState(tasks);
-
+  // Yes
   const {
     lists, tasks, isTaskModalOpen, isListEditModalOpen,
   } = useSelector((state) => state);
@@ -72,6 +64,7 @@ function TaskList({
         isOpen={isListEditModalOpen === id}
         closeModal={() => setIsListEditModalOpen(-1)}
         submit={listEditSubmit}
+        title="Edit the task"
         list={{
           id, name, color, boardId,
         }}

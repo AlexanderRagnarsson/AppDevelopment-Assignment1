@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import {
   View, Text, Animated, TouchableHighlight,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import DeleteModal from '../DeleteModal';
 import styles from './styles';
 
 function BoardPreview({
   board, navigate,
 }) {
-  // const taskslists = tasks.filter((item) => item.listId in boardlists);
-  // console.log(boardlists);
-  // console.log(thumbnailPhoto);
   const {
     id, name, description = '', thumbnailPhoto,
   } = board;
@@ -23,10 +21,24 @@ function BoardPreview({
     // setBoards(boards.filter((item) => (item.id !== boardId)));
   };
 
+  const [deleteBoardModalOpen, setDeleteBoardModalOpen] = useState(-1);
+
   return (
-    <View>
-      <Text>{`${id} ${name} ${description} `}</Text>
+    <View style={styles.view}>
+      <View style={styles.boardView}>
+        <View style={styles.boardnamedescriptionview}>
+          <Text style={styles.boardTitle}>{`${name}`}</Text>
+          <Text>{`${description}`}</Text>
+        </View>
+        <TouchableHighlight
+          style={styles.boardButton}
+          onPress={() => { setDeleteBoardModalOpen(id); }}
+        >
+          <AntDesign name="delete" size={25} color="black" />
+        </TouchableHighlight>
+      </View>
       <TouchableHighlight
+        style={styles.touch}
         onPress={() => navigate('Board', {
           id,
         })}
@@ -36,11 +48,12 @@ function BoardPreview({
           source={{ uri: thumbnailPhoto }}
         />
       </TouchableHighlight>
-      <TouchableHighlight
-        onPress={() => { deleteBoard(id); }}
-      >
-        <AntDesign name="delete" size={50} color="black" />
-      </TouchableHighlight>
+      <DeleteModal
+        isOpen={deleteBoardModalOpen === id}
+        closeModal={() => { setDeleteBoardModalOpen(-1); }}
+        onConfirm={() => deleteBoard(id)}
+        itemName={` ${name}`}
+      />
     </View>
   );
 }

@@ -4,30 +4,29 @@ import { AntDesign } from '@expo/vector-icons';
 import { View, TouchableHighlight, Text } from 'react-native';
 import styles from './styles';
 
-function Toolbar({
+function AddButton({
   onAdd,
   addString,
 }) {
   return (
-    <View style={styles.toolbar}>
+    <View>
       <TouchableHighlight
-        styles={styles.toolbarAction}
         onPress={onAdd}
       >
-        <Text styles={styles.toolbarActionText}>
-          <Text>{ `${addString}` }</Text>
-          <AntDesign name="plus" size={18} color="black" />
+        <Text>
+          <AntDesign name="plus" size={30} color="black" />
+          {addString}
         </Text>
       </TouchableHighlight>
     </View>
   );
 }
 
-Toolbar.propTypes = {
+AddButton.propTypes = {
   // What happens when stuff is pressed
   onAdd: PropTypes.func.isRequired,
   // The thing that is pressed on to add stuff
   addString: PropTypes.string.isRequired,
 };
 
-export default Toolbar;
+export default AddButton;

@@ -2,20 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {
   View, Text, TouchableHighlight,
 } from 'react-native';
 import styles from './styles';
 import TaskEditModal from '../TaskEditModal';
-
-/*  import styles from './styles';
-import Task from '../Task'; */
-
+import DeleteModal from '../DeleteModal';
 function Task({
   id,
 }) {
   const {
-    tasks, isTaskEditModalOpen,
+    tasks, isTaskEditModalOpen, deleteTaskModalOpen,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -38,25 +36,47 @@ function Task({
     dispatch({ type: 'UPDATE_TASK_EDIT_MODAL', payload: value });
   };
 
+  const setDeleteTaskModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_DELETE_TASK_MODAL', payload: value });
+  };
+
   // console.log(name);
   // console.log(description);
-  const finstatus = isFinished ? 'Finished!' : 'Not finished';
   return (
     <View>
-      <Text style={styles.TaskText}>
-        {`id: ${id}, Name: ${name}, Descr: ${description}, Status:  ${finstatus}  `}
-        {`Delete task with id: ${id}  `}
-        <TouchableHighlight
-          onPress={() => { deleteTask(id); }}
-        >
-          <AntDesign name="delete" size={20} color="black" />
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={() => { setIsTaskEditModalOpen(id); }}
-        >
-          <AntDesign name="edit" size={20} color="black" />
-        </TouchableHighlight>
-      </Text>
+      <View style={styles.TaskText}>
+        <BouncyCheckbox
+          fillColor="green"
+          // ref={(ref) => { bouncyCheckboxRef = ref; }}
+          isChecked={isFinished}
+          // text={name}
+          disableBuiltInState
+          onPress={() => taskEditSubmit({
+            id, name, description, isFinished: !isFinished, listId,
+          })}
+        />
+        <View style={styles.taskView}>
+          <Text style={styles.taskName}>
+            {`${name}`}
+          </Text>
+          <Text style={styles.taskDescription}>
+            {`${description}`}
+          </Text>
+
+        </View>
+        <View style={styles.allignRight}>
+          <TouchableHighlight
+            onPress={() => { setDeleteTaskModalOpen(id); }}
+          >
+            <AntDesign name="delete" size={20} color="black" />
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => { setIsTaskEditModalOpen(id); }}
+          >
+            <AntDesign name="edit" size={20} color="black" />
+          </TouchableHighlight>
+        </View>
+      </View>
       <TaskEditModal
         isOpen={isTaskEditModalOpen === id}
         closeModal={() => setIsTaskEditModalOpen(-1)}
@@ -65,6 +85,12 @@ function Task({
         task={{
           id, name, description, isFinished, listId,
         }}
+      />
+      <DeleteModal
+        isOpen={deleteTaskModalOpen === id}
+        closeModal={() => { setDeleteTaskModalOpen(-1); }}
+        onConfirm={() => deleteTask(id)}
+        itemName={` ${name}`}
       />
     </View>
   );

@@ -56,10 +56,10 @@ function PhotoSelection({ value, onChange }) {
       <TouchableOpacity
         onPress={() => selectFromCameraRoll()}
       >
-        <Text>
+        {/* <Text>
           {'Select new photo form camera roll '}
           <Entypo styles={styles.icon} name="image" />
-        </Text>
+        </Text> */}
       </TouchableOpacity>
     </View>
   );

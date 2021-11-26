@@ -1,35 +1,41 @@
+import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View, Text, FlatList, TouchableHighlight,
 } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 import Task from '../Task';
 import styles from './styles';
-import Toolbar from '../Toolbar';
+import AddButton from '../Addbutton';
 import TaskModal from '../TaskModal';
 import ListEditModal from '../ListEditModal';
+import DeleteModal from '../DeleteModal';
 
 function TaskList({
   id,
 }) {
-  // Yes
   const {
-    lists, tasks, isTaskModalOpen, isListEditModalOpen,
+    lists, tasks, isTaskModalOpen, isListEditModalOpen, deleteListModalOpen,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  // The current board
   const {
     name, color, boardId,
   } = lists.filter((list) => list.id === id)[0];
 
+  // Open the list edit modal
   const setIsListEditModalOpen = (value) => {
     dispatch({ type: 'UPDATE_LIST_EDIT_MODAL', payload: value });
   };
 
   const setIsTaskModalOpen = (value) => {
     dispatch({ type: 'UPDATE_TASK_MODAL', payload: value });
+  };
+
+  const setDeleteListModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_DELETE_LIST_MODAL', payload: value });
   };
 
   // Adding the new task to the tasks
@@ -53,13 +59,17 @@ function TaskList({
   };
 
   const tasklist = tasks.filter((item) => item.listId === id);
+
+  function getContrastYIQ(hexcolor) {
+    const r = parseInt(hexcolor.substr(1, 2), 16);
+    const g = parseInt(hexcolor.substr(3, 2), 16);
+    const b = parseInt(hexcolor.substr(5, 2), 16);
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? 'black' : 'white';
+  }
+
   return (
-    <View>
-      <TouchableHighlight
-        onPress={() => { setIsListEditModalOpen(id); }}
-      >
-        <AntDesign name="edit" size={30} color="black" />
-      </TouchableHighlight>
+    <View style={styles.TaskText}>
       <ListEditModal
         isOpen={isListEditModalOpen === id}
         closeModal={() => setIsListEditModalOpen(-1)}
@@ -69,21 +79,32 @@ function TaskList({
           id, name, color, boardId,
         }}
       />
-      <Text>
-        {`List: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}
-        <TouchableHighlight
-          onPress={() => { deleteList(id); }}
-        >
-          <AntDesign name="delete" size={20} color="black" />
-        </TouchableHighlight>
-      </Text>
-      <Toolbar
-        onAdd={() => setIsTaskModalOpen(id)}
-        addString="Add task"
-      />
+      <View style={{
+        ...styles.TitleView, borderColor: color,
+      }}
+      >
+        <Text style={styles.TitleText}>{`${name}`}</Text>
+        <View style={styles.TitleTextButtons}>
+          <TouchableHighlight
+            onPress={() => { setIsListEditModalOpen(id); }}
+          >
+            <AntDesign name="edit" size={25} color="black" />
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => { setDeleteListModalOpen(id); }}
+          >
+            <AntDesign name="delete" size={25} color="black" />
+          </TouchableHighlight>
+          <AddButton
+            onAdd={() => setIsTaskModalOpen(id)}
+            addString=""
+          />
+        </View>
+      </View>
       <TaskModal
+        id={id}
         isOpen={isTaskModalOpen === id}
-        closeModal={() => setIsTaskModalOpen(-1)}
+        closeModal={() => { setIsTaskModalOpen(-1); }}
         submit={submitTask}
       />
       <FlatList
@@ -93,6 +114,12 @@ function TaskList({
           <Task style={styles.Task} {...{ id: item.id }} />
         )}
         keyExtractor={(board) => board.id}
+      />
+      <DeleteModal
+        isOpen={deleteListModalOpen === id}
+        closeModal={() => { setDeleteListModalOpen(-1); }}
+        onConfirm={() => deleteList(id)}
+        itemName={` ${name}`}
       />
     </View>
   );

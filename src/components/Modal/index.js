@@ -1,6 +1,6 @@
 import React from 'react';
 import NativeModal from 'react-native-modal';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './styles';
 
@@ -15,18 +15,14 @@ function Modal({
       isVisible={isOpen}
       hasBackdrop
       onBackButtonPress={closeModal}
-      // onSwipeComplete={closeModal}
-      onBackdropPress={closeModal}
-      // swipeDirection={['up', 'down']}
+      onSwipeComplete={closeModal}
+      // onBackdropPress={closeModal}
+      swipeDirection={['up', 'down']}
       style={styles.modal}
     >
       <View style={styles.body}>
         <Text>{title}</Text>
         {children}
-        <Button
-          title="Cancel"
-          onPress={() => { closeModal(); }}
-        />
       </View>
     </NativeModal>
   );

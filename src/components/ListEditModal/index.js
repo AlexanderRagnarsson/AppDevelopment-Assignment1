@@ -3,8 +3,6 @@ import {
   TextInput, Button,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
-import { Slider } from 'react-native-slider';
 import Modal from '../Modal';
 import styles from './styles';
 
@@ -41,11 +39,11 @@ function ListEditModal({
         value={inputs.name}
         onChangeText={(text) => inputHandler('name', text)}
       />
-      <TriangleColorPicker
-        onColorChange={(color) => { inputHandler('color', fromHsv(color)); }}
-        style={{ flex: 1, width: '100%' }}
-        hideControls
-        sliderComponent={Slider}
+      <TextInput
+        styles={styles.textInput}
+        placeholder="Enter the color of the board"
+        value={inputs.color}
+        onChangeText={(text) => inputHandler('color', text)}
       />
       <Button
         title="Submit"

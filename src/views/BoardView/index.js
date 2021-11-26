@@ -8,8 +8,8 @@ import { AntDesign } from '@expo/vector-icons';
 import BoardLists from '../../components/Board';
 import styles from './styles';
 import ListModal from '../../components/ListModal';
-import Toolbar from '../../components/Toolbar';
 import BoardEditModal from '../../components/BoardEditModal';
+import AddButton from '../../components/Addbutton';
 
 function Board({ route }) {
   const { id } = route.params;
@@ -49,10 +49,6 @@ function Board({ route }) {
 
   return (
     <View>
-      <Toolbar
-        onAdd={() => setIsListModalOpen(true)}
-        addString="Add List"
-      />
       <Text>
         {`${id} ${name} ${description}, To Edit board: `}
         <TouchableHighlight
@@ -60,12 +56,15 @@ function Board({ route }) {
         >
           <AntDesign name="edit" size={30} color="black" />
         </TouchableHighlight>
+        <AddButton
+          onAdd={() => setIsListModalOpen(true)}
+          addString=""
+        />
       </Text>
       <Animated.Image
         style={styles.Image}
         source={{ uri: thumbnailPhoto }}
       />
-      <Text>Lists:</Text>
       <BoardLists
         {...{
           id,

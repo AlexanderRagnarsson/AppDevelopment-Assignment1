@@ -26,6 +26,7 @@ function TaskEditModal({
     inputs.name = task.name;
     inputs.description = task.description;
     inputs.isFinished = task.isFinished;
+    inputs.listId = task.listId;
   };
 
   return (
@@ -45,6 +46,12 @@ function TaskEditModal({
         placeholder="Enter the description of the task"
         value={inputs.description}
         onChangeText={(text) => inputHandler('description', text)}
+      />
+      <TextInput
+        styles={styles.textInput}
+        placeholder="Enter ListId"
+        value={inputs.listId}
+        onChangeText={(text) => inputHandler('listId', text)}
       />
       <Button
         title="Submit"

@@ -7,7 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 import Task from '../Task';
 import styles from './styles';
-import Toolbar from '../Toolbar';
+import AddButton from '../Addbutton';
 import TaskModal from '../TaskModal';
 import ListEditModal from '../ListEditModal';
 
@@ -54,12 +54,7 @@ function TaskList({
 
   const tasklist = tasks.filter((item) => item.listId === id);
   return (
-    <View>
-      <TouchableHighlight
-        onPress={() => { setIsListEditModalOpen(id); }}
-      >
-        <AntDesign name="edit" size={30} color="black" />
-      </TouchableHighlight>
+    <View style={styles.TaskText}>
       <ListEditModal
         isOpen={isListEditModalOpen === id}
         closeModal={() => setIsListEditModalOpen(-1)}
@@ -69,18 +64,23 @@ function TaskList({
           id, name, color, boardId,
         }}
       />
-      <Text>
-        {`List: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}
+      <Text style={{ backgroundColor: color, borderWidth: 1, borderStyle: 'solid', borderColor: 'rgba(0, 0, 0, 0.1)'}}>
+        {`ListId: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}
+        <TouchableHighlight
+          onPress={() => { setIsListEditModalOpen(id); }}
+        >
+          <AntDesign name="edit" size={25} color="black" />
+        </TouchableHighlight>
         <TouchableHighlight
           onPress={() => { deleteList(id); }}
         >
-          <AntDesign name="delete" size={20} color="black" />
+          <AntDesign name="delete" size={25} color="black" />
         </TouchableHighlight>
+        <AddButton
+          onAdd={() => setIsTaskModalOpen(id)}
+          addString=""
+        />
       </Text>
-      <Toolbar
-        onAdd={() => setIsTaskModalOpen(id)}
-        addString="Add task"
-      />
       <TaskModal
         isOpen={isTaskModalOpen === id}
         closeModal={() => setIsTaskModalOpen(-1)}

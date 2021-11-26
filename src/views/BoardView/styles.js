@@ -5,4 +5,7 @@ export default StyleSheet.create({
     width: 200,
     height: 100,
   },
+  FontSize: {
+    fontSize: 20,
+  },
 });

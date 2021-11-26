@@ -25,7 +25,14 @@ function BoardPreview({
 
   return (
     <View>
-      <Text>{`${id} ${name} ${description} `}</Text>
+      <Text>
+        {`${id} ${name} ${description} `}
+        <TouchableHighlight
+          onPress={() => { deleteBoard(id); }}
+        >
+          <AntDesign name="delete" size={25} color="black" />
+        </TouchableHighlight>
+      </Text>
       <TouchableHighlight
         onPress={() => navigate('Board', {
           id,
@@ -35,11 +42,6 @@ function BoardPreview({
           style={styles.Image}
           source={{ uri: thumbnailPhoto }}
         />
-      </TouchableHighlight>
-      <TouchableHighlight
-        onPress={() => { deleteBoard(id); }}
-      >
-        <AntDesign name="delete" size={50} color="black" />
       </TouchableHighlight>
     </View>
   );

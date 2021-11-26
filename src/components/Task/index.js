@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AntDesign } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
 import {
   View, Text, TouchableHighlight,
 } from 'react-native';
@@ -40,11 +41,19 @@ function Task({
 
   // console.log(name);
   // console.log(description);
-  const finstatus = isFinished ? 'Finished!' : 'Not finished';
   return (
     <View>
+      <BouncyCheckbox
+        style={{ marginTop: 16 }}
+        fillColor="green"
+        ref={(ref: any) => (bouncyCheckboxRef = ref)}
+        isChecked={isFinished}
+        text={name}
+        disableBuiltInState
+        onPress={() => taskEditSubmit({id:id, name:name, description:description, isFinished:!isFinished, listId:listId})}
+      />
       <Text style={styles.TaskText}>
-        {`id: ${id}, Name: ${name}, Descr: ${description}, Status:  ${finstatus}  `}
+        {`id: ${id}, Descr: ${description}`}
         {`Delete task with id: ${id}  `}
         <TouchableHighlight
           onPress={() => { deleteTask(id); }}
@@ -56,16 +65,16 @@ function Task({
         >
           <AntDesign name="edit" size={20} color="black" />
         </TouchableHighlight>
-        <TaskEditModal
-          isOpen={isTaskEditModalOpen === id}
-          closeModal={() => setIsTaskEditModalOpen(-1)}
-          submit={taskEditSubmit}
-          title="Edit the task"
-          task={{
-            id, name, description, isFinished, listId,
-          }}
-        />
       </Text>
+      <TaskEditModal
+        isOpen={isTaskEditModalOpen === id}
+        closeModal={() => setIsTaskEditModalOpen(-1)}
+        submit={taskEditSubmit}
+        title="Edit the task"
+        task={{
+          id, name, description, isFinished, listId,
+        }}
+      />
     </View>
   );
 }

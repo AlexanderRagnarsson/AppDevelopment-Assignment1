@@ -48,9 +48,11 @@ function Board({ route }) {
   };
 
   return (
-    <View>
+    <View style={styles.view}>
+      <Text>{`${name}`}</Text>
+      <Text>{`${description}`}</Text>
       <Text>
-        {`${id} ${name} ${description}, To Edit board: `}
+        To Edit board:
         <TouchableHighlight
           onPress={() => { setIsBoardEditModalOpen(true); }}
         >

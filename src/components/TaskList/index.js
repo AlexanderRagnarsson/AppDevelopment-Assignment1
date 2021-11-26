@@ -77,7 +77,7 @@ function TaskList({
         backgroundColor: color, borderWidth: 1, borderStyle: 'solid', borderColor: 'rgba(0, 0, 0, 0.1)', color: getContrastYIQ(color),
       }}
       >
-        {`ListId: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}
+        {`${name}`}
         <TouchableHighlight
           onPress={() => { setIsListEditModalOpen(id); }}
         >

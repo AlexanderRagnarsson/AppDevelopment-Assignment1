@@ -50,7 +50,7 @@ function ListEditModal({
         onChangeText={(text) => inputHandler('name', text)}
       />
       <TriangleColorPicker
-        color={setList.color}
+        color={inputs.color}
         onColorChange={(color) => { inputHandler('color', fromHsv(color)); }}
         style={{ flex: 1, width: '100%' }}
         hideControls

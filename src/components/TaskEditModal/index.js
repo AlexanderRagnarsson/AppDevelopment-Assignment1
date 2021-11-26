@@ -50,7 +50,9 @@ function TaskEditModal({
   const correctLists = lists.filter(
     (item) => item.boardId === findBoardIdList.boardId,
   ).map(
-    (item) => ({ ...item, labelStyle: { backgroundColor: item.color, color: getContrastYIQ(item.color) } }),
+    (item) => ({
+      ...item,
+      labelStyle: { backgroundColor: item.color, color: getContrastYIQ(item.color) } }),
   );
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const [dropDownValue, setDropDownValue] = useState(setTask.listId);

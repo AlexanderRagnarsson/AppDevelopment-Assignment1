@@ -10,9 +10,6 @@ import styles from './styles';
 function BoardPreview({
   board, navigate,
 }) {
-  // const taskslists = tasks.filter((item) => item.listId in boardlists);
-  // console.log(boardlists);
-  // console.log(thumbnailPhoto);
   const {
     id, name, description = '', thumbnailPhoto,
   } = board;
@@ -24,9 +21,9 @@ function BoardPreview({
   };
 
   return (
-    <View>
+    <View style={styles.view}>
       <Text>
-        {`${id} ${name} ${description} `}
+        {`${name}`}
         <TouchableHighlight
           onPress={() => { deleteBoard(id); }}
         >
@@ -34,6 +31,7 @@ function BoardPreview({
         </TouchableHighlight>
       </Text>
       <TouchableHighlight
+        style={styles.touch}
         onPress={() => navigate('Board', {
           id,
         })}

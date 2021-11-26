@@ -43,20 +43,23 @@ function Task({
   const finstatus = isFinished ? 'Finished!' : 'Not finished';
   return (
     <View>
-      <Text style={styles.TaskText}>
-        {`id: ${id}, Name: ${name}, Descr: ${description}, Status:  ${finstatus}  `}
-        {`Delete task with id: ${id}  `}
-        <TouchableHighlight
-          onPress={() => { deleteTask(id); }}
-        >
-          <AntDesign name="delete" size={20} color="black" />
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={() => { setIsTaskEditModalOpen(id); }}
-        >
-          <AntDesign name="edit" size={20} color="black" />
-        </TouchableHighlight>
-      </Text>
+      <View style={styles.TaskText}>
+        <Text style={ {flex: 0.9} }>
+          {`${name}, Descr: ${description}, Status:  ${finstatus}  `}
+        </Text>
+        <View style={styles.allignRight}>
+          <TouchableHighlight
+            onPress={() => { deleteTask(id); }}
+          >
+            <AntDesign name="delete" size={20} color="black" />
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => { setIsTaskEditModalOpen(id); }}
+          >
+            <AntDesign name="edit" size={20} color="black" />
+          </TouchableHighlight>
+        </View>
+      </View>
       <TaskEditModal
         isOpen={isTaskEditModalOpen === id}
         closeModal={() => setIsTaskEditModalOpen(-1)}

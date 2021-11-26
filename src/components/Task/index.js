@@ -60,6 +60,7 @@ function Task({
           isOpen={isTaskEditModalOpen === id}
           closeModal={() => setIsTaskEditModalOpen(-1)}
           submit={taskEditSubmit}
+          title="Edit the task"
           task={{
             id, name, description, isFinished, listId,
           }}

@@ -17,8 +17,6 @@ function Board({ route }) {
     boards, lists, isListModalOpen, isBoardEditModalOpen,
   } = useSelector((state) => state);
 
-  console.log(id);
-  console.log(boards, lists);
   const dispatch = useDispatch();
 
   const setIsListModalOpen = (value) => {

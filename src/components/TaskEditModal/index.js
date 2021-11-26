@@ -10,6 +10,7 @@ function TaskEditModal({
   task,
   isOpen,
   closeModal,
+  title,
   submit,
 }) {
   const [inputs, setInputs] = useState(task);
@@ -22,16 +23,16 @@ function TaskEditModal({
   };
 
   const clearInputs = () => {
-    inputs.name = '';
-    inputs.description = '';
-    inputs.isFinished = false;
+    inputs.name = task.name;
+    inputs.description = task.description;
+    inputs.isFinished = task.isFinished;
   };
 
   return (
     <Modal
       isOpen={isOpen}
       closeModal={() => { closeModal(); clearInputs(); }}
-      title="Update a task"
+      title={title}
     >
       <TextInput
         styles={styles.textInput}
@@ -47,7 +48,7 @@ function TaskEditModal({
       />
       <Button
         title="Submit"
-        onPress={() => { submit(inputs); closeModal(); clearInputs(); }}
+        onPress={() => { submit(inputs); closeModal(); }}
       />
     </Modal>
   );
@@ -64,6 +65,8 @@ TaskEditModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   // Function to close the modal
   closeModal: PropTypes.func.isRequired,
+  // The title
+  title: PropTypes.string.isRequired,
   // Function to submit the new Board
   submit: PropTypes.func.isRequired,
 };

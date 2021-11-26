@@ -10,6 +10,7 @@ function ListEditModal({
   list,
   isOpen,
   closeModal,
+  title,
   submit,
 }) {
   const [inputs, setInputs] = useState(list);
@@ -30,7 +31,7 @@ function ListEditModal({
     <Modal
       isOpen={isOpen}
       closeModal={() => { closeModal(); clearInputs(); }}
-      title="Create a list"
+      title={title}
     >
       <TextInput
         styles={styles.textInput}
@@ -62,6 +63,8 @@ ListEditModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   // Function to close the modal
   closeModal: PropTypes.func.isRequired,
+  // The title
+  title: PropTypes.string.isRequired,
   // Function to submit the new Board
   submit: PropTypes.func.isRequired,
 };

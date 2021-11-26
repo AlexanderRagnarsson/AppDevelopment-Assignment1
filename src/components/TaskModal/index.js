@@ -9,9 +9,10 @@ function TaskModal({
 }) {
   return (
     <TaskEditModal
-      task={{ name: '', description: 'blue', isFinished: false }}
+      task={{ name: '', description: '', isFinished: false }}
       isOpen={isOpen}
       closeModal={closeModal}
+      title="Create a task"
       submit={submit}
     />
   );

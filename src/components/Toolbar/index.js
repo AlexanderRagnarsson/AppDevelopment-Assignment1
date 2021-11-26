@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Entypo } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import { View, TouchableHighlight, Text } from 'react-native';
 import styles from './styles';
 
@@ -14,14 +14,9 @@ function Toolbar({
         styles={styles.toolbarAction}
         onPress={onAdd}
       >
-        <Text
-          styles={styles.toolbarActionText}
-        >
-          <Entypo
-            styles={styles.icon}
-            name="squared-plus"
-          />
-          {addString}
+        <Text styles={styles.toolbarActionText}>
+          { `${addString}` }
+          <AntDesign name="plus" size={18} color="black" />
         </Text>
       </TouchableHighlight>
     </View>

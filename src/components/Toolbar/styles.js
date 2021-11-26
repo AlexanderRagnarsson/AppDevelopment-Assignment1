@@ -17,6 +17,8 @@ export default StyleSheet.create({
   toolbarActionText: {
     fontWeight: 'bold',
     color: 'white',
+    alignContent: 'center',
+    alignItems: 'center',
   },
   icon: {
     fontSize: 200,

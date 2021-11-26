@@ -49,29 +49,31 @@ function Board({ route }) {
 
   return (
     <View style={styles.view}>
-      <Text>{`${name}`}</Text>
-      <Text>{`${description}`}</Text>
-      <Text>
-        To Edit board:
-        <TouchableHighlight
-          onPress={() => { setIsBoardEditModalOpen(true); }}
-        >
-          <AntDesign name="edit" size={30} color="black" />
-        </TouchableHighlight>
+      <Text style={styles.name}>{`${name}`}</Text>
+      <View style={styles.imgpadding}>
+        <Animated.Image
+          style={styles.Image}
+          source={{ uri: thumbnailPhoto }}
+        />
+        <View style={styles.boardview}>
+          <Text style={styles.description}>{`${description}`}</Text>
+          <Text>
+            To Edit board:
+            <TouchableHighlight
+              onPress={() => { setIsBoardEditModalOpen(true); }}
+            >
+              <AntDesign name="edit" size={30} color="black" />
+            </TouchableHighlight>
+          </Text>
+        </View>
+      </View>
+      <View style={styles.addList}>
+        <Text style={styles.addListText}>Add a new list</Text>
         <AddButton
           onAdd={() => setIsListModalOpen(true)}
           addString=""
         />
-      </Text>
-      <Animated.Image
-        style={styles.Image}
-        source={{ uri: thumbnailPhoto }}
-      />
-      <BoardLists
-        {...{
-          id,
-        }}
-      />
+      </View>
       <ListModal
         isOpen={isListModalOpen}
         closeModal={() => setIsListModalOpen(false)}
@@ -83,6 +85,11 @@ function Board({ route }) {
         submit={editSubmit}
         board={{
           id, name, description, thumbnailPhoto,
+        }}
+      />
+      <BoardLists
+        {...{
+          id,
         }}
       />
     </View>

@@ -9,6 +9,7 @@ export default StyleSheet.create({
     fontSize: 30,
   },
   view: {
+    marginBottom: 300,
     padding: 10,
   },
 });

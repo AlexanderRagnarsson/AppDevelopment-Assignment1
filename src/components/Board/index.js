@@ -3,6 +3,7 @@ import { FlatList, View } from 'react-native';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import TaskList from '../TaskList';
+import styles from './styles';
 
 function Board({
   id,
@@ -11,7 +12,7 @@ function Board({
   const boardlists = lists.filter((item) => item.boardId === id);
 
   return (
-    <View>
+    <View style={styles.View}>
       <FlatList
         numColumns={1}
         data={boardlists}

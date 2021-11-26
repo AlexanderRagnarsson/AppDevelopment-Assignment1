@@ -73,26 +73,28 @@ function TaskList({
           id, name, color, boardId,
         }}
       />
-      <Text style={{
-        backgroundColor: color, borderWidth: 1, borderStyle: 'solid', borderColor: 'rgba(0, 0, 0, 0.1)', color: getContrastYIQ(color),
+      <View style={{
+        ...styles.TitleView, borderColor: color,
       }}
       >
-        {`${name}`}
-        <TouchableHighlight
-          onPress={() => { setIsListEditModalOpen(id); }}
-        >
-          <AntDesign name="edit" size={25} color="black" />
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={() => { deleteList(id); }}
-        >
-          <AntDesign name="delete" size={25} color="black" />
-        </TouchableHighlight>
-        <AddButton
-          onAdd={() => setIsTaskModalOpen(id)}
-          addString=""
-        />
-      </Text>
+        <Text style={styles.TitleText}>{`${name}`}</Text>
+        <View style={styles.TitleTextButtons}>
+          <TouchableHighlight
+            onPress={() => { setIsListEditModalOpen(id); }}
+          >
+            <AntDesign name="edit" size={25} color="black" />
+          </TouchableHighlight>
+          <TouchableHighlight
+            onPress={() => { deleteList(id); }}
+          >
+            <AntDesign name="delete" size={25} color="black" />
+          </TouchableHighlight>
+          <AddButton
+            onAdd={() => setIsTaskModalOpen(id)}
+            addString=""
+          />
+        </View>
+      </View>
       <TaskModal
         id={id}
         isOpen={isTaskModalOpen === id}

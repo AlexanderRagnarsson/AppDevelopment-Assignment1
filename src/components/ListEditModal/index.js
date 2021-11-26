@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
-import { Slider } from 'react-native-slider';
+import { Slider } from '@react-native-community/slider';
 import Modal from '../Modal';
 import styles from './styles';
 

@@ -25,14 +25,15 @@ function BoardPreview({
 
   return (
     <View style={styles.view}>
-      <Text>
-        {`${name}`}
+      <View style={styles.boardView}>
+        <Text style={styles.boardTitle}>{`${name}`}</Text>
         <TouchableHighlight
+          style={styles.boardButton}
           onPress={() => { setDeleteBoardModalOpen(id); }}
         >
           <AntDesign name="delete" size={25} color="black" />
         </TouchableHighlight>
-      </Text>
+      </View>
       <TouchableHighlight
         style={styles.touch}
         onPress={() => navigate('Board', {

@@ -15,7 +15,7 @@ function Toolbar({
         onPress={onAdd}
       >
         <Text styles={styles.toolbarActionText}>
-          { `${addString}` }
+          <Text>{ `${addString}` }</Text>
           <AntDesign name="plus" size={18} color="black" />
         </Text>
       </TouchableHighlight>

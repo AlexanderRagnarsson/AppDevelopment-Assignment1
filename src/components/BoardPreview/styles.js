@@ -14,4 +14,15 @@ export default StyleSheet.create({
   touch: {
     width: '100%',
   },
+  boardTitle: {
+    flex: 0.9,
+    fontSize: 24,
+  },
+  boardView: {
+    flexDirection: 'row',
+    paddingBottom: 6,
+  },
+  boardButton: {
+    flex: 0.1,
+  },
 });

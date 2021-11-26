@@ -22,4 +22,13 @@ export default StyleSheet.create({
     alignContent: 'center',
     padding: 5,
   },
+  taskView: {
+    flex: 0.9,
+  },
+  taskName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  taskDescription: {
+  },
 });

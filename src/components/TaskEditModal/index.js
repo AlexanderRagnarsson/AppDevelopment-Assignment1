@@ -38,18 +38,10 @@ function TaskEditModal({
     inputs.isFinished = setTask.isFinished;
   };
 
-  console.log('HERE');
-
   const findBoardIdList = lists.filter((item) => item.id === setTask.listId)[0];
-
-  console.log(findBoardIdList);
-  console.log(lists);
-
   const correctLists = lists.filter((item) => item.boardId === findBoardIdList.boardId);
-
-  console.log(correctLists);
-
-  const [dropDownOpen, setOpen] = useState(false);
+  const [dropDownOpen, setDropDownOpen] = useState(false);
+  const [dropDownValue, setDropDownValue] = useState(setTask.listId);
 
   return (
     <Modal
@@ -75,14 +67,14 @@ function TaskEditModal({
           value: 'id',
         }}
         open={dropDownOpen}
-        value={inputs.listId}
+        value={dropDownValue}
         items={correctLists}
-        setOpen={setOpen}
-        setValue={(text) => inputHandler('listId', text)}
+        setOpen={setDropDownOpen}
+        setValue={setDropDownValue}
       />
       <Button
         title="Submit"
-        onPress={() => { submit(inputs); closeModal(); }}
+        onPress={() => { submit({ ...inputs, listId: dropDownValue }); closeModal(); }}
       />
     </Modal>
   );

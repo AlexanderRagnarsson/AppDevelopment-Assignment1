@@ -1,47 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { View, Text } from 'react-native';
+import { useSelector, useDispatch } from 'react-redux';
 import BoardList from '../../components/BoardList';
-import fileData from '../../resources/data.json';
 import BoardModal from '../../components/BoardModal';
 import Toolbar from '../../components/Toolbar';
-import * as imageService from '../../services/imageService';
-import * as fileService from '../../services/fileService';
 
 function Boards({ navigation: { navigate } }) {
-  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
-  const [data, setData] = useState(fileData);
+  const { boards, isBoardModalOpen } = useSelector(
+    (state) => (state),
+  );
+  const dispatch = useDispatch();
 
-  const addImage = async (photo) => {
-    const newImage = await fileService.addImage(photo);
-    return newImage.filename;
-  };
-
-  const takePhoto = async () => {
-    let photo = await imageService.takePhoto();
-
-    if (photo.length > 0) {
-      photo = await addImage(photo);
-    }
-
-    return photo;
+  const setIsBoardModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_BOARD_MODAL', payload: value });
   };
 
   const submitFunc = async ({ name, description, thumbnailPhoto }) => {
-    const { boards } = data;
     const nextId = boards.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
-
-    await thumbnailPhoto.then(
+    // Wait to get the photo taken from the fileSystem
+    Promise.resolve(thumbnailPhoto).then(
       (value) => {
         const board = {
-          nextId, name, description, thumbnailPhoto: value,
+          id: nextId, name, description, thumbnailPhoto: value,
         };
 
-        boards.push({ id: nextId, ...board });
-        setData({
-          ...data,
-          boards,
-        });
+        dispatch({ type: 'ADD_BOARD', payload: board });
+        // setBoards([...boards, board]);
       },
     );
   };
@@ -54,13 +39,11 @@ function Boards({ navigation: { navigate } }) {
       />
       <Text>BOARDS:</Text>
       <BoardList
-        {...{ ...data, navigate }}
+        {...{ navigate }}
       />
       <BoardModal
         isOpen={isBoardModalOpen}
         closeModal={() => setIsBoardModalOpen(false)}
-        takePhoto={takePhoto}
-        selectFromCameraRoll={() => {}}
         submit={submitFunc}
       />
     </View>

@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { View, FlatList } from 'react-native';
+import { useSelector } from 'react-redux';
 import BoardPreview from '../BoardPreview';
 import styles from './styles';
 
-function BoardList({
-  boards, lists, tasks, navigate,
-}) {
+function BoardList({ navigate }) {
+  const boards = useSelector((state) => state.boards);
+
   return (
     <View styles={styles.listContainer}>
       <FlatList
@@ -14,7 +15,7 @@ function BoardList({
         data={boards}
         renderItem={({ item }) => (
           <BoardPreview {...{
-            ...item, lists, tasks, navigate,
+            board: item, navigate,
           }}
           />
         )}
@@ -26,9 +27,6 @@ function BoardList({
 
 BoardList.propTypes = {
   navigate: PropTypes.func.isRequired,
-  boards: PropTypes.arrayOf(PropTypes.object).isRequired,
-  lists: PropTypes.arrayOf(PropTypes.object).isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default BoardList;

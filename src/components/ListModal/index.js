@@ -1,64 +1,23 @@
-import React, { useState } from 'react';
-import {
-  TextInput, Button,
-} from 'react-native';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Modal from '../Modal';
-import styles from './styles';
+import ListEditModal from '../ListEditModal';
 
-function BoardModal({
+function ListModal({
   isOpen,
   closeModal,
   submit,
 }) {
-  const [inputs, setInputs] = useState({
-    name: '',
-    color: 'blue',
-  });
-
-  const inputHandler = (name, value) => {
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
-
-  const clearInputs = () => {
-    inputs.name = '';
-    inputs.color = '';
-  };
-
   return (
-    <Modal
+    <ListEditModal
+      list={{ name: '', color: 'blue' }}
       isOpen={isOpen}
-      closeModal={() => { closeModal(); clearInputs(); }}
-      title="Create a list"
-    >
-      <TextInput
-        styles={styles.textInput}
-        placeholder="Enter the name of the List"
-        value={inputs.name}
-        onChangeText={(text) => inputHandler('name', text)}
-      />
-      <TextInput
-        styles={styles.textInput}
-        placeholder="Enter the color of the board"
-        value={inputs.color}
-        onChangeText={(text) => inputHandler('color', text)}
-      />
-      <Button
-        title="Submit"
-        onPress={() => {
-          submit(inputs);
-          closeModal();
-          clearInputs();
-        }}
-      />
-    </Modal>
+      closeModal={closeModal}
+      submit={submit}
+    />
   );
 }
 
-BoardModal.propTypes = {
+ListModal.propTypes = {
   // Is the modal open or not
   isOpen: PropTypes.bool.isRequired,
   // Function to close the modal
@@ -67,4 +26,4 @@ BoardModal.propTypes = {
   submit: PropTypes.func.isRequired,
 };
 
-export default BoardModal;
+export default ListModal;

@@ -1,51 +1,96 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  View, Text, Animated,
+  View, Text, Animated, TouchableHighlight,
 } from 'react-native';
-import TheBoard from '../../components/Board';
+import { useSelector, useDispatch } from 'react-redux';
+import { AntDesign } from '@expo/vector-icons';
+import BoardLists from '../../components/Board';
 import styles from './styles';
-import BoardModal from '../../components/ListModal';
+import ListModal from '../../components/ListModal';
 import Toolbar from '../../components/Toolbar';
+import BoardEditModal from '../../components/BoardEditModal';
 
 function Board({ route }) {
+  const { id } = route.params;
   const {
-    id, name, description, thumbnailPhoto, lists, tasks,
-  } = route.params;
+    boards, lists, isListModalOpen, isBoardEditModalOpen,
+  } = useSelector((state) => state);
 
-  const [isBoardModalOpen, setIsBoardModalOpen] = useState(false);
-  const [data, setData] = useState(lists);
+  console.log(id);
+  console.log(boards, lists);
+  const dispatch = useDispatch();
 
-  const submitFunc = (list) => {
-    const nextId = data.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
-    const theboardId = id;
-    data.push({ id: nextId, ...list, boardId: theboardId });
-    setData(data);
+  const setIsListModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_LIST_MODAL', payload: value });
+  };
+
+  const setIsBoardEditModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_BOARD_EDIT_MODAL', payload: value });
+  };
+
+  const {
+    name, description = '', thumbnailPhoto,
+  } = boards.filter((boardIt) => boardIt.id === id)[0];
+
+  // Sumbit a new list
+  const submitFunc = (newList) => {
+    const nextId = lists.reduce((prev, curr) => (curr.id >= prev ? (curr.id + 1) : prev), 0);
+    // setLists([{ id: nextId, ...newList, boardId: id },
+    //   ...lists.filter((list) => (list.id !== newList.id))]);
+    // theLists.push({ id: nextId, ...newList, boardId: id });
+    // setLists(theLists);
+    dispatch({ type: 'ADD_LIST', payload: { id: nextId, ...newList, boardId: id } });
+  };
+
+  const editSubmit = async (newBoard) => {
+    // setBoards([newBoard, ...boards.filter((boardIt) => (boardIt.id !== newBoard.id))]);
+    // setBoard(newBoard);
+    dispatch({ type: 'EDIT_BOARD', payload: newBoard });
   };
 
   return (
     <View>
       <Toolbar
-        onAdd={() => setIsBoardModalOpen(true)}
+        onAdd={() => setIsListModalOpen(true)}
         addString="Add List"
       />
       <Text>
-        {`${id} ${name} ${description}, To delete board: `}
+        {`${id} ${name} ${description}, To Edit board: `}
+        <TouchableHighlight
+          onPress={() => { setIsBoardEditModalOpen(true); }}
+        >
+          <AntDesign name="edit" size={30} color="black" />
+        </TouchableHighlight>
+        {'To Delete board: '}
+        <TouchableHighlight
+          onPress={() => { deleteBoard(true); }}
+        >
+          <AntDesign name="delete" size={30} color="black" />
+        </TouchableHighlight>
       </Text>
       <Animated.Image
         style={styles.Image}
         source={{ uri: thumbnailPhoto }}
       />
       <Text>Lists:</Text>
-      <TheBoard
+      <BoardLists
         {...{
-          id, name, description, thumbnailPhoto, data, tasks,
+          id,
         }}
       />
-      <BoardModal
-        isOpen={isBoardModalOpen}
-        closeModal={() => setIsBoardModalOpen(false)}
+      <ListModal
+        isOpen={isListModalOpen}
+        closeModal={() => setIsListModalOpen(false)}
         submit={submitFunc}
+      />
+      <BoardEditModal
+        isOpen={isBoardEditModalOpen}
+        closeModal={() => setIsBoardEditModalOpen(false)}
+        submit={editSubmit}
+        board={{
+          id, name, description, thumbnailPhoto,
+        }}
       />
     </View>
   );

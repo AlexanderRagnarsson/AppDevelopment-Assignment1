@@ -1,31 +1,22 @@
-import React, { useState } from 'react';
-import {
-  FlatList, View,
-} from 'react-native';
+import React from 'react';
+import { FlatList, View } from 'react-native';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import TaskList from '../TaskList';
 
 function Board({
-  id, name, description = '', thumbnailPhoto, data, tasks,
+  id,
 }) {
-  // console.log(...tasks)
-  const boardlists = data.filter((item) => item.boardId === id);
-
-  const [theLists, setTheLists] = useState(boardlists);
-
-  const deleteList = (listId) => {
-    console.log(listId);
-    console.log(theLists);
-    setTheLists(theLists.filter((item) => (item.id !== listId)));
-  };
+  const { lists } = useSelector((state) => state);
+  const boardlists = lists.filter((item) => item.boardId === id);
 
   return (
     <View>
       <FlatList
         numColumns={1}
-        data={theLists}
+        data={boardlists}
         renderItem={({ item }) => (
-          <TaskList {...{ ...item, tasks, deleteList }} />
+          <TaskList {...{ id: item.id }} />
         )}
         keyExtractor={(board) => board.id}
       />
@@ -35,15 +26,6 @@ function Board({
 
 Board.propTypes = {
   id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
-  description: PropTypes.string,
-  thumbnailPhoto: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
-  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
-
-Board.defaultProps = {
-  description: '',
 };
 
 export default Board;

@@ -11,6 +11,9 @@ function Reducer(state, action) {
       isBoardEditModalOpen: false,
       isListEditModalOpen: -1,
       isTaskEditModalOpen: -1,
+      deleteBoardModalOpen: -1,
+      deleteListModalOpen: -1,
+      deleteTaskModalOpen: -1,
     };
   }
   let newstate = state;
@@ -68,6 +71,12 @@ function Reducer(state, action) {
       return { ...state, isListEditModalOpen: action.payload };
     case 'UPDATE_TASK_EDIT_MODAL':
       return { ...state, isTaskEditModalOpen: action.payload };
+    case 'UPDATE_DELETE_BOARD_MODAL':
+      return { ...state, deleteBoardModalOpen: action.payload };
+    case 'UPDATE_DELETE_LIST_MODAL':
+      return { ...state, deleteListModalOpen: action.payload };
+    case 'UPDATE_DELETE_TASK_MODAL':
+      return { ...state, deleteTaskModalOpen: action.payload };
     default:
       return state;
   }

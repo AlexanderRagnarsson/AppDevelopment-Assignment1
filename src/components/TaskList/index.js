@@ -1,29 +1,31 @@
+import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
   View, Text, FlatList, TouchableHighlight,
 } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 import Task from '../Task';
 import styles from './styles';
 import AddButton from '../Addbutton';
 import TaskModal from '../TaskModal';
 import ListEditModal from '../ListEditModal';
+import DeleteModal from '../DeleteModal';
 
 function TaskList({
   id,
 }) {
-  // Yes
   const {
-    lists, tasks, isTaskModalOpen, isListEditModalOpen,
+    lists, tasks, isTaskModalOpen, isListEditModalOpen, deleteListModalOpen,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  // The current board
   const {
     name, color, boardId,
   } = lists.filter((list) => list.id === id)[0];
 
+  // Open the list edit modal
   const setIsListEditModalOpen = (value) => {
     dispatch({ type: 'UPDATE_LIST_EDIT_MODAL', payload: value });
   };
@@ -31,6 +33,12 @@ function TaskList({
   const setIsTaskModalOpen = (value) => {
     dispatch({ type: 'UPDATE_TASK_MODAL', payload: value });
   };
+
+  const setDeleteListModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_DELETE_LIST_MODAL', payload: value });
+  };
+
+  console.log("func here", setDeleteListModalOpen);
 
   // Adding the new task to the tasks
   const submitTask = (task) => {
@@ -84,7 +92,7 @@ function TaskList({
           <AntDesign name="edit" size={25} color="black" />
         </TouchableHighlight>
         <TouchableHighlight
-          onPress={() => { deleteList(id); }}
+          onPress={() => { setDeleteListModalOpen(id); }}
         >
           <AntDesign name="delete" size={25} color="black" />
         </TouchableHighlight>
@@ -96,7 +104,7 @@ function TaskList({
       <TaskModal
         id={id}
         isOpen={isTaskModalOpen === id}
-        closeModal={() => setIsTaskModalOpen(-1)}
+        closeModal={() => { setIsTaskModalOpen(-1); }}
         submit={submitTask}
       />
       <FlatList
@@ -106,6 +114,12 @@ function TaskList({
           <Task style={styles.Task} {...{ id: item.id }} />
         )}
         keyExtractor={(board) => board.id}
+      />
+      <DeleteModal
+        isOpen={deleteListModalOpen === id}
+        closeModal={() => { setDeleteListModalOpen(-1); }}
+        onConfirm={() => deleteList(id)}
+        itemName={` ${name}`}
       />
     </View>
   );

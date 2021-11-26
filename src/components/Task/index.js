@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import styles from './styles';
 import TaskEditModal from '../TaskEditModal';
+import DeleteModal from '../DeleteModal';
 
 /*  import styles from './styles';
 import Task from '../Task'; */
@@ -15,7 +16,7 @@ function Task({
   id,
 }) {
   const {
-    tasks, isTaskEditModalOpen,
+    tasks, isTaskEditModalOpen, deleteTaskModalOpen,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
 
@@ -38,6 +39,10 @@ function Task({
     dispatch({ type: 'UPDATE_TASK_EDIT_MODAL', payload: value });
   };
 
+  const setDeleteTaskModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_DELETE_TASK_MODAL', payload: value });
+  };
+
   // console.log(name);
   // console.log(description);
   const finstatus = isFinished ? 'Finished!' : 'Not finished';
@@ -47,7 +52,7 @@ function Task({
         {`id: ${id}, Name: ${name}, Descr: ${description}, Status:  ${finstatus}  `}
         {`Delete task with id: ${id}  `}
         <TouchableHighlight
-          onPress={() => { deleteTask(id); }}
+          onPress={() => { setDeleteTaskModalOpen(id); }}
         >
           <AntDesign name="delete" size={20} color="black" />
         </TouchableHighlight>
@@ -65,6 +70,12 @@ function Task({
         task={{
           id, name, description, isFinished, listId,
         }}
+      />
+      <DeleteModal
+        isOpen={deleteTaskModalOpen === id}
+        closeModal={() => { setDeleteTaskModalOpen(-1); }}
+        onConfirm={() => deleteTask(id)}
+        itemName={` ${name}`}
       />
     </View>
   );

@@ -38,8 +38,20 @@ function TaskEditModal({
     inputs.isFinished = setTask.isFinished;
   };
 
+  function getContrastYIQ(hexcolor) {
+    const r = parseInt(hexcolor.substr(1, 2), 16);
+    const g = parseInt(hexcolor.substr(3, 2), 16);
+    const b = parseInt(hexcolor.substr(5, 2), 16);
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? 'black' : 'white';
+  }
+
   const findBoardIdList = lists.filter((item) => item.id === setTask.listId)[0];
-  const correctLists = lists.filter((item) => item.boardId === findBoardIdList.boardId);
+  const correctLists = lists.filter(
+    (item) => item.boardId === findBoardIdList.boardId,
+  ).map(
+    (item) => ({ ...item, labelStyle: { backgroundColor: item.color, color: getContrastYIQ(item.color) } }),
+  );
   const [dropDownOpen, setDropDownOpen] = useState(false);
   const [dropDownValue, setDropDownValue] = useState(setTask.listId);
 

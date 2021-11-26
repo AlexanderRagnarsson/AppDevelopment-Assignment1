@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import React, { useState } from 'react';
 import {
   TextInput, Button,
@@ -14,7 +15,15 @@ function TaskEditModal({
   title,
   submit,
 }) {
-  const [inputs, setInputs] = useState(task);
+  let setTask = task;
+
+  const { lists, tasks } = useSelector((state) => state);
+
+  if (setTask.id !== undefined) {
+    [setTask] = tasks.filter((taskIt) => taskIt.id === setTask.id);
+  }
+
+  const [inputs, setInputs] = useState(setTask);
 
   const inputHandler = (name, value) => {
     setInputs({
@@ -24,9 +33,23 @@ function TaskEditModal({
   };
 
   const clearInputs = () => {
-    inputs.name = task.name;
-    inputs.description = task.description;
+    inputs.name = setTask.name;
+    inputs.description = setTask.description;
+    inputs.isFinished = setTask.isFinished;
   };
+
+  console.log('HERE');
+
+  const findBoardIdList = lists.filter((item) => item.id === setTask.listId)[0];
+
+  console.log(findBoardIdList);
+  console.log(lists);
+
+  const correctLists = lists.filter((item) => item.boardId === findBoardIdList.boardId);
+
+  console.log(correctLists);
+
+  const [dropDownOpen, setOpen] = useState(false);
 
   return (
     <Modal
@@ -45,6 +68,17 @@ function TaskEditModal({
         placeholder="Enter the description of the task"
         value={inputs.description}
         onChangeText={(text) => inputHandler('description', text)}
+      />
+      <DropDownPicker
+        schema={{
+          label: 'name',
+          value: 'id',
+        }}
+        open={dropDownOpen}
+        value={inputs.listId}
+        items={correctLists}
+        setOpen={setOpen}
+        setValue={(text) => inputHandler('listId', text)}
       />
       <Button
         title="Submit"

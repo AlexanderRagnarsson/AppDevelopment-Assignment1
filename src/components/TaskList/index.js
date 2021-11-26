@@ -82,6 +82,7 @@ function TaskList({
         />
       </Text>
       <TaskModal
+        id={id}
         isOpen={isTaskModalOpen === id}
         closeModal={() => setIsTaskModalOpen(-1)}
         submit={submitTask}
@@ -90,7 +91,7 @@ function TaskList({
         numColumns={1}
         data={tasklist}
         renderItem={({ item }) => (
-          <Task style={styles.Task} {...{ ...item }} />
+          <Task style={styles.Task} {...{ id: item.id }} />
         )}
         keyExtractor={(board) => board.id}
       />

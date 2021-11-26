@@ -13,20 +13,35 @@ function Reducer(state, action) {
       isTaskEditModalOpen: -1,
     };
   }
+  let newstate = state;
   switch (action.type) {
     case 'ADD_BOARD':
       return { ...state, boards: [...state.boards, action.payload] };
     case 'DELETE_BOARD':
-      return { ...state, boards: state.boards.filter((board) => board.id !== action.payload) };
+      state.lists.forEach((list) => {
+        if (list.boardId === action.payload) {
+          newstate = Reducer(newstate, { type: 'DELETE_LIST', payload: list.id });
+        }
+      });
+      return {
+        ...newstate,
+        boards: newstate.boards.filter((board) => board.id !== action.payload),
+      };
     case 'EDIT_BOARD':
       return {
         ...state,
-        boards: state.boards.map((board) => (board.id === action.payload.id ? action.payload : board)),
+        boards: state.boards.map((board) => (
+          board.id === action.payload.id ? action.payload : board)),
       };
     case 'ADD_LIST':
       return { ...state, lists: [...state.lists, action.payload] };
     case 'DELETE_LIST':
-      return { ...state, lists: state.lists.filter((list) => list.id !== action.payload) };
+      state.tasks.forEach((task) => {
+        if (task.listId === action.payload) {
+          newstate = Reducer(newstate, { type: 'DELETE_TASK', payload: task.id });
+        }
+      });
+      return { ...newstate, lists: newstate.lists.filter((list) => list.id !== action.payload) };
     case 'EDIT_LIST':
       return {
         ...state,

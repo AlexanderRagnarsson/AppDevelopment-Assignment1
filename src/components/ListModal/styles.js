@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
+  Image: {
+    width: 200,
+    height: 100,
+  },
   icon: {
     fontSize: 60,
     marginTop: 20,

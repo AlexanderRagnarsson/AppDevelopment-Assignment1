@@ -55,13 +55,18 @@ function TaskList({
     dispatch({ type: 'EDIT_LIST', payload: newList });
   };
 
+  const deleteList = (listId) => {
+    dispatch({ type: 'DELETE_LIST', payload: listId });
+    // setBoards(boards.filter((item) => (item.id !== boardId)));
+  };
+
   const tasklist = tasks.filter((item) => item.listId === id);
   return (
     <View>
       <TouchableHighlight
         onPress={() => { setIsListEditModalOpen(id); }}
       >
-        <AntDesign name="edit" size={50} color="black" />
+        <AntDesign name="edit" size={30} color="black" />
       </TouchableHighlight>
       <ListEditModal
         isOpen={isListEditModalOpen === id}
@@ -71,7 +76,14 @@ function TaskList({
           id, name, color, boardId,
         }}
       />
-      <Text>{`List: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}</Text>
+      <Text>
+        {`List: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}
+        <TouchableHighlight
+          onPress={() => { deleteList(id); }}
+        >
+          <AntDesign name="delete" size={20} color="black" />
+        </TouchableHighlight>
+      </Text>
       <Toolbar
         onAdd={() => setIsTaskModalOpen(id)}
         addString="Add task"

@@ -55,16 +55,18 @@ function Board({ route }) {
         onAdd={() => setIsListModalOpen(true)}
         addString="Add List"
       />
-      <Text>{`${id} ${name} ${description}`}</Text>
+      <Text>
+        {`${id} ${name} ${description}, To Edit board: `}
+        <TouchableHighlight
+          onPress={() => { setIsBoardEditModalOpen(true); }}
+        >
+          <AntDesign name="edit" size={30} color="black" />
+        </TouchableHighlight>
+      </Text>
       <Animated.Image
         style={styles.Image}
         source={{ uri: thumbnailPhoto }}
       />
-      <TouchableHighlight
-        onPress={() => { setIsBoardEditModalOpen(true); }}
-      >
-        <AntDesign name="edit" size={50} color="black" />
-      </TouchableHighlight>
       <Text>Lists:</Text>
       <BoardLists
         {...{

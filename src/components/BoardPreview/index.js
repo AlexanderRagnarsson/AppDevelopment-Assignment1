@@ -26,7 +26,10 @@ function BoardPreview({
   return (
     <View style={styles.view}>
       <View style={styles.boardView}>
-        <Text style={styles.boardTitle}>{`${name}`}</Text>
+        <View style={styles.boardnamedescriptionview}>
+          <Text style={styles.boardTitle}>{`${name}`}</Text>
+          <Text>{`${description}`}</Text>
+        </View>
         <TouchableHighlight
           style={styles.boardButton}
           onPress={() => { setDeleteBoardModalOpen(id); }}

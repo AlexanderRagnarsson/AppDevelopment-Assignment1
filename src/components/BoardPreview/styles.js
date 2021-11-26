@@ -15,7 +15,6 @@ export default StyleSheet.create({
     width: '100%',
   },
   boardTitle: {
-    flex: 0.9,
     fontSize: 24,
   },
   boardView: {
@@ -24,5 +23,8 @@ export default StyleSheet.create({
   },
   boardButton: {
     flex: 0.1,
+  },
+  boardnamedescriptionview: {
+    flex: 0.9,
   },
 });

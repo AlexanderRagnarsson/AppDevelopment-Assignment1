@@ -59,13 +59,13 @@ function TaskList({
   return (
     <View>
       <TouchableHighlight
-        onPress={() => { setIsListEditModalOpen(true); }}
+        onPress={() => { setIsListEditModalOpen(id); }}
       >
         <AntDesign name="edit" size={50} color="black" />
       </TouchableHighlight>
       <ListEditModal
-        isOpen={isListEditModalOpen}
-        closeModal={() => setIsListEditModalOpen(false)}
+        isOpen={isListEditModalOpen === id}
+        closeModal={() => setIsListEditModalOpen(-1)}
         submit={listEditSubmit}
         list={{
           id, name, color, boardId,
@@ -73,12 +73,12 @@ function TaskList({
       />
       <Text>{`List: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}</Text>
       <Toolbar
-        onAdd={() => setIsTaskModalOpen(true)}
+        onAdd={() => setIsTaskModalOpen(id)}
         addString="Add task"
       />
       <TaskModal
-        isOpen={isTaskModalOpen}
-        closeModal={() => setIsTaskModalOpen(false)}
+        isOpen={isTaskModalOpen === id}
+        closeModal={() => setIsTaskModalOpen(-1)}
         submit={submitTask}
       />
       <FlatList

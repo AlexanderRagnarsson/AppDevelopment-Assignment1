@@ -7,10 +7,10 @@ function Reducer(state, action) {
       ...data,
       isBoardModalOpen: false,
       isListModalOpen: false,
-      isTaskModalOpen: false,
+      isTaskModalOpen: -1,
       isBoardEditModalOpen: false,
-      isListEditModalOpen: false,
-      isTaskEditModalOpen: false,
+      isListEditModalOpen: -1,
+      isTaskEditModalOpen: -1,
     };
   }
   switch (action.type) {

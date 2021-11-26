@@ -53,6 +53,15 @@ function TaskList({
   };
 
   const tasklist = tasks.filter((item) => item.listId === id);
+
+  function getContrastYIQ(hexcolor) {
+    const r = parseInt(hexcolor.substr(1, 2), 16);
+    const g = parseInt(hexcolor.substr(3, 2), 16);
+    const b = parseInt(hexcolor.substr(5, 2), 16);
+    const yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+    return (yiq >= 128) ? 'black' : 'white';
+  }
+
   return (
     <View style={styles.TaskText}>
       <ListEditModal
@@ -64,7 +73,10 @@ function TaskList({
           id, name, color, boardId,
         }}
       />
-      <Text style={{ backgroundColor: color, borderWidth: 1, borderStyle: 'solid', borderColor: 'rgba(0, 0, 0, 0.1)'}}>
+      <Text style={{
+        backgroundColor: color, borderWidth: 1, borderStyle: 'solid', borderColor: 'rgba(0, 0, 0, 0.1)', color: getContrastYIQ(color),
+      }}
+      >
         {`ListId: ${id}, Name: ${name}, Color: ${color}, Belongs to board: ${boardId}`}
         <TouchableHighlight
           onPress={() => { setIsListEditModalOpen(id); }}

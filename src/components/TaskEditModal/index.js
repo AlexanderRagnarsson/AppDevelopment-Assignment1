@@ -41,14 +41,7 @@ function TaskEditModal({
   console.log('HERE');
 
   const findBoardIdList = lists.filter((item) => item.id === setTask.listId)[0];
-
-  console.log(findBoardIdList);
-  console.log(lists);
-
   const correctLists = lists.filter((item) => item.boardId === findBoardIdList.boardId);
-
-  console.log(correctLists);
-
   const [dropDownOpen, setOpen] = useState(false);
 
   return (
@@ -75,10 +68,10 @@ function TaskEditModal({
           value: 'id',
         }}
         open={dropDownOpen}
-        value={inputs.listId}
+        value={inputs}
         items={correctLists}
         setOpen={setOpen}
-        setValue={(text) => inputHandler('listId', text)}
+        setValue={(text) => console.log(text)}
       />
       <Button
         title="Submit"

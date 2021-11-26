@@ -3,19 +3,17 @@ import {
   TextInput, Button,
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
-import { Slider } from 'react-native-slider';
 import Modal from '../Modal';
 import styles from './styles';
 
-function ListEditModal({
-  list,
+function TaskEditModal({
+  task,
   isOpen,
   closeModal,
   title,
   submit,
 }) {
-  const [inputs, setInputs] = useState(list);
+  const [inputs, setInputs] = useState(task);
 
   const inputHandler = (name, value) => {
     setInputs({
@@ -25,8 +23,9 @@ function ListEditModal({
   };
 
   const clearInputs = () => {
-    inputs.name = list.name;
-    inputs.color = list.color;
+    inputs.name = task.name;
+    inputs.description = task.description;
+    inputs.isFinished = task.isFinished;
   };
 
   return (
@@ -37,15 +36,15 @@ function ListEditModal({
     >
       <TextInput
         styles={styles.textInput}
-        placeholder="Enter the name of the List"
+        placeholder="Enter the name of the task"
         value={inputs.name}
         onChangeText={(text) => inputHandler('name', text)}
       />
-      <TriangleColorPicker
-        onColorChange={(color) => { inputHandler('color', fromHsv(color)); }}
-        style={{ flex: 1, width: '100%' }}
-        hideControls
-        sliderComponent={Slider}
+      <TextInput
+        styles={styles.textInput}
+        placeholder="Enter the description of the task"
+        value={inputs.description}
+        onChangeText={(text) => inputHandler('description', text)}
       />
       <Button
         title="Submit"
@@ -55,11 +54,12 @@ function ListEditModal({
   );
 }
 
-ListEditModal.propTypes = {
+TaskEditModal.propTypes = {
   // list
-  list: PropTypes.shape({
+  task: PropTypes.shape({
     name: PropTypes.string,
-    color: PropTypes.string,
+    description: PropTypes.string,
+    isFinished: PropTypes.bool,
   }).isRequired,
   // Is the modal open or not
   isOpen: PropTypes.bool.isRequired,
@@ -70,5 +70,4 @@ ListEditModal.propTypes = {
   // Function to submit the new Board
   submit: PropTypes.func.isRequired,
 };
-
-export default ListEditModal;
+export default TaskEditModal;

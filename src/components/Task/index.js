@@ -6,21 +6,36 @@ import {
   View, Text, TouchableHighlight,
 } from 'react-native';
 import styles from './styles';
+import TaskEditModal from '../TaskEditModal';
 
 /*  import styles from './styles';
 import Task from '../Task'; */
 
 function Task({
-  id, name, description, isFinished, listId,
+  id,
 }) {
   const {
-    tasks
+    tasks, isTaskEditModalOpen,
   } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const {
+    name, description, isFinished, listId,
+  } = tasks.filter((list) => list.id === id)[0];
 
   const deleteTask = (thelistId) => {
     dispatch({ type: 'DELETE_TASK', payload: thelistId });
     // setBoards(boards.filter((item) => (item.id !== boardId)));
+  };
+
+  const taskEditSubmit = async (newTask) => {
+    // setLists([...lists.filter((listIt) => (listIt.id !== newList.id)), newList]);
+    // setList(newList);
+    dispatch({ type: 'EDIT_TASK', payload: newTask });
+  };
+
+  const setIsTaskEditModalOpen = (value) => {
+    dispatch({ type: 'UPDATE_TASK_EDIT_MODAL', payload: value });
   };
 
   // console.log(name);
@@ -36,6 +51,20 @@ function Task({
         >
           <AntDesign name="delete" size={20} color="black" />
         </TouchableHighlight>
+        <TouchableHighlight
+          onPress={() => { setIsTaskEditModalOpen(id); }}
+        >
+          <AntDesign name="edit" size={20} color="black" />
+        </TouchableHighlight>
+        <TaskEditModal
+          isOpen={isTaskEditModalOpen === id}
+          closeModal={() => setIsTaskEditModalOpen(-1)}
+          submit={taskEditSubmit}
+          title="Edit the task"
+          task={{
+            id, name, description, isFinished, listId,
+          }}
+        />
       </Text>
     </View>
   );
